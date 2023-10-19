@@ -1,0 +1,126 @@
+<?php 
+$drop= $dao->getDataJoin(array('rid','rname'),'rto');
+
+ $dropss=array();
+ foreach( $drop as $key=>$value)
+ {
+   $drops= array("rid" =>$key, "rname" => $value);
+   array_push($dropss,$drops);
+
+ }
+
+ $optionsArray = [];
+
+ foreach ($dropss as $key=>$item) {
+    $reg=$item['rname'];
+    $optionsArray[] = [
+    "option" => $reg,
+          "value" => $item["rid"]
+      ];
+    
+ }
+
+ 
+ // Convert the PHP array to a JSON string for JavaScript
+ $optionsArrayJson = json_encode($optionsArray);
+  ?>
+<div class="custom-dropdown">
+  <input type="text" id="customInput" placeholder="Type or select an RTO">
+  <ul id="customDropdown">
+     </ul>
+</div>
+  
+    
+ 
+<!-- <div class="custom-dropdown"> -->
+  <!-- <input type="text" id="customInput" placeholder="Type or select an option"> -->
+  <!-- <ul id="customDropdown"> -->
+    <!-- <li data-value="Option 1">Option 1</li> -->
+    <!-- <li data-value="Option 2">Option 2</li> -->
+    <!-- <li data-value="Option 3">Option 3</li> -->
+  <!-- </ul> -->
+<!-- </div> -->
+<style>
+.custom-dropdown {
+  position: relative;
+  width: 200px;
+}
+
+#customInput {
+  width: 100%;
+}
+
+#customDropdown {
+  display: none;
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+#customDropdown li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+#customDropdown li:hover {
+  background-color: #e0e0e0;
+}
+</style>
+<script>
+  const customInput = document.getElementById('customInput');
+const customDropdown = document.getElementById('customDropdown');
+
+// Define your array of objects with options and values
+const optionsArrayyy = <?php echo $optionsArrayJson;?>;
+const newData = [];
+
+// Loop through the original data and transform it
+optionsArrayyy.forEach(item => {
+    newData.push({
+        "option": item.option.rname,
+        "value": item.value
+    });
+});
+optionsArray=newData;
+// Function to populate the custom dropdown with options from the array
+function populateDropdown() {
+  customDropdown.innerHTML = '';
+  optionsArray.forEach(function (item) {
+    const listItem = document.createElement('li');
+    listItem.textContent = item.option;
+    listItem.setAttribute('data-value', item.value);
+    customDropdown.appendChild(listItem);
+
+    listItem.addEventListener('click', function () {
+      customInput.value = item.option;
+      customDropdown.style.display = 'none';
+    });
+  });
+}
+
+customInput.addEventListener('focus', function () {
+  customDropdown.style.display = 'block';
+  populateDropdown();
+});
+
+customInput.addEventListener('input', function () {
+  customDropdown.style.display = 'block';
+  const inputText = customInput.value.trim().toLowerCase();
+
+  populateDropdown(); // Populate the dropdown with all options
+
+  const filteredItems = customDropdown.querySelectorAll('li');
+
+  filteredItems.forEach(function (item) {
+    if (!item.textContent.toLowerCase().includes(inputText)) {
+      item.style.display = 'none';
+    } else {
+      item.style.display = 'block';
+    }
+  });
+});
+
+</script>

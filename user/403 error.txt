@@ -1,0 +1,4 @@
+require('../../config/autoload.php');
+$a=$_SESSION['user_id'];
+if(!isset($a))
+header('Location: /projectbca21016/403.html');

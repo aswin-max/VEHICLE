@@ -1,0 +1,8 @@
+<select name='d' id='d'>
+<option value="District">District</option>
+<option value="Thiruvananthapuram">Thiruvananthapuram</option>
+<option value="Kollam">Kollam</option>
+<option value="Pathanamthitta">Pathanamthitta</option>
+<option value="Computer-Science">Computer-Science</option>
+<option value="Humanities">Humanities</option>
+</select><br /><br /><br /><br /><br />
