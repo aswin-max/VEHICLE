@@ -17,7 +17,7 @@ $labels=array('offname'=>"offname",'offuser'=>"offuser",'offpass'=>"offpass",'of
 
 $rules=array(
     "offname"=>array("required"=>true,"alphaspaceonly"=>true),
-    "offuser"=>array("required"=>true,"maxlength"=>10),
+    "offuser"=>array("required"=>true),
     "offpass"=>array("required"=>true,"minlength"=>6,"maxlength"=>14),
     "offimg"=>array("filerequired"=>true),
     "rid"=>array("required"=>true)
@@ -33,7 +33,7 @@ if(isset($_POST["insert"]))
 
 if($validator->validate($_POST))
 {
-	if($fileName=$file->doUploadRandom($_FILES['offimg'],array('.jpg','.png','.jpeg'),100000,1,'../upload'))	
+	if($fileName=$file->doUploadRandom($_FILES['offimg'],array('.jpg','.png','.jpeg'),100000,1,'../uploads'))	
     {
 
 

@@ -64,8 +64,12 @@ $validator=new FormValidator($rules);
         if($info=$dao->login($data,'owner'))
         {
            
-            $_SESSION['owner']=$info['email'];
-$a=$_SESSION['owner'];
+            $_SESSION['id']=$info['owno'];
+            $a=$_SESSION['id'];
+            if ($info['vid']==0)
+            {
+              header('location:../addvehicle.php');
+            }
 
 
 		

@@ -18,13 +18,14 @@ $dao=new DataAccess();
                     <tr>
                     <th>VEHICLE NUMBER</th>
                         <th>RTO-Office</th>
+                        <th>Vehicle-NUMBER</th>
                         <th>Owner-Name</th>
                         <th>Vehicle-Name</th>
                         <th>Fuel</th>
                         <th>TYPE</th>
                         <th>Colour</th>
                         <th>DATE OF REGISTRATION</th>
-                                         
+                        <th>RC BOOK</th>   
                     </tr>
 <?php
     
@@ -34,6 +35,13 @@ $dao=new DataAccess();
 
     $config=array(
         
+        'srno'=>true,
+        'hiddenfields'=>array('vid'),
+'actions_td'=>false,
+         'images'=>array(
+                        'field'=>'rc',
+                        'path'=>'../uploads/',
+                        'attributes'=>array('style'=>'width:250px;'))
         
         
         
@@ -44,7 +52,7 @@ $dao=new DataAccess();
         'rto as r'=>array('r.rid=v.rid','join'),
         'type as t'=>array('t.tid=v.tid','join'),
         'fuel as f'=>array('f.fid=v.fid','join'),
-    );  $fields=array('vrno','r.rname as rname','vname','vehiclename','f.fname as fname','t.tname as tname','color','dor');
+    );  $fields=array('vrno','vname','r.rname as rname','vehiclename','f.fname as fname','t.tname as tname','color','dor','rc');
 
     $users=$dao->selectAsTable($fields,'vehicle as v',1,$join,$actions,$config);
     

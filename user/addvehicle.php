@@ -4,7 +4,7 @@
 include("header.php");
 $file=new FileUpload();
 $elements=array(
-        "vrno"=>"","tid"=>"","vname"=>"","rid"=>"","vehiclename"=>"","fid"=>"","color"=>"","dor"=>"");
+        "vid"=>"");
 
 
 $form=new FormAssist($elements,$_POST);
@@ -13,18 +13,11 @@ $form=new FormAssist($elements,$_POST);
 
 $dao=new DataAccess();
 
-$labels=array('vrno'=>"vrno",'tid'=>"tname",'vname'=>"vname",'rid'=>"rname",'vehiclename'=>"vehiclename",'fid'=>"fname",'color'=>"color",'dor'=>"dor");
+$labels=array('vid'=>"ownerno");
 
 $rules=array(
-    "tid"=>array("required"=>true),
-    "vrno"=>array("required"=>true),
-    "vname"=>array("required"=>true,"alphaspaceonly"=>true),
-    "rid"=>array("required"=>true),
-    "fid"=>array("required"=>true),
-    "vehiclename"=>array("required"=>true),
-    "color"=>array("required"=>true,"alphaonly"=>true),
-    "dor"=>array("required"=>true)
-
+    "vid"=>array("required"=>true)
+   
      
 );
     
@@ -33,30 +26,25 @@ $validator = new FormValidator($rules,$labels);
 
 if(isset($_POST["insert"]))
 {
-
+    print_r($_POST);
 if($validator->validate($_POST))
 {
-	
-    
+     
 
 $data=array(
 
-        'tid'=>$_POST['tid'],
-        'vrno'=>$_POST['vrno'],
-        'vname'=>$_POST['vname'],
-        'rid'=>$_POST['rid'],
-        'fid'=>$_POST['fid'],
-        'vehiclename'=>$_POST['vehiclename'],
-        'color'=>$_POST['color'],
-        'dor'=>$_POST['dor']
+        'vid'=>$_POST['vid'],
+       
     );
 
     print_r($data);
   
-    if($dao->insert($data,"vehicle"))
+    if($dao->update($data,"owner","owno=".$_SESSION['id']))
     {
-        echo "<script> alert('New record created successfully');</script> ";
+         
 
+        echo "<script> alert('New record created successfully');</script> ";
+        echo"<script> location.replace('home.php'); </script>";
     }
     else
         {$msg="Registration failed";} 
@@ -67,6 +55,7 @@ $data=array(
     
 }
 }
+
 else
 echo $file->errors();
                                                                                                                                                                                                                                                                                                                            
@@ -76,91 +65,170 @@ echo $file->errors();
 </head>
 <body>
 
- <form  method="POST" encvehicle="multipart/form-data">
+ <form  method="POST" enctype="multipart/form-data">
 
-<div class="row">
-                    <div class="col-md-6">
-TYPE:
+>
 
+
+owner
 <?php
-                    $options = $dao->createOptions('tname','tid',"type");
-                    echo $form->dropDownList('tid',array('class'=>'form-control'),$options); ?>
-<?= $validator->error('tid'); ?>
+        $drop = $dao->getDataJoin(array('vid', 'vrno'), 'vehicle');
+        $dropss = [];
+        foreach ($drop as $key => $value) {
+            $drops = array("vid" => $value['vid'], "vrno" => $value['vrno']);
+            array_push($dropss, $drops);
+        }
+        $optionsArray = [];
+        foreach ($dropss as $key => $item) {
+            $optionsArray[] = [
+                "option" => $item['vid'] . '.' . $item['vrno'],
+                "value" => $item['vid'] . '.' . $item['vrno']
+            ];
+        }
+        $optionsArrayJson = json_encode($optionsArray);
+        ?>
+        <div class="custom-dropdown">
+            <label class="col-form-label"><b>owner</b></label><br>
+            <div class="input-container">
+                <input type="text" name="vid" id="customInput" placeholder="Type vid or owner Number" class="form-control d-inline">
+                <span class="clear-button d-inline mdi mdi-close"></span>
+            </div>
+            <ul id="customDropdown"></ul>
+        </div>
 
-</div>
-</div>
 
-<div class="row">
-                    <div class="col-md-6">
-RTO:
+<style>
+.custom-dropdown {
+  position: relative;
+  width: 500px;
+}
 
-<?php
-                    $options = $dao->createOptions('rname','rid',"rto");
-                    echo $form->dropDownList('rid',array('class'=>'form-control'),$options); ?>
-<?= $validator->error('rid'); ?>
+#customInput {
+  width: 100%;
+}
 
-</div>
-</div>
+#customDropdown {
+  display: none;
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1;
+  max-height: 150px; /* Set a maximum height for the dropdown */
+  overflow-y: auto; /* Enable vertical scrolling if the list exceeds the maximum height */
+}
 
-<div class="row">
-                    <div class="col-md-6">
-VEHICLE RC NUMBER:
+#customDropdown li {
+  width: 470px;
+  padding: 5px;
+  cursor: pointer;
+}
 
-<?= $form->textBox('vrno',array('class'=>'form-control')); ?>
-<?= $validator->error('vrno'); ?>
+#customDropdown li:hover {
+  background-color: #e0e0e0;
+}
 
-</div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-OWNER NAME:
+.input-container {
+  width: 500px;
+  display: inline-flex;
+  align-items: center;
+}
 
-<?= $form->textBox('vname',array('class'=>'form-control')); ?>
-<?= $validator->error('vname'); ?>
+#customInput {
+  margin-right: 10px;
+}
 
-</div>
-</div>
+.clear-button {
+  cursor: pointer;
+  color: #999;
+}
 
-<div class="row">
-                    <div class="col-md-6">
-VEHICLE NAME:
+.clear-button:hover {
+  color: #333;
+}
+</style>
 
-<?= $form->textBox('vehiclename',array('class'=>'form-control')); ?>
-<?= $validator->error('vehiclename'); ?>
 
-</div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-FUEL:
+            <script>
+  const customInput = document.getElementById('customInput');
+const customDropdown = document.getElementById('customDropdown');
 
-<?php
-                    $options = $dao->createOptions('fname','fid',"fuel");
-                    echo $form->dropDownList('fid',array('class'=>'form-control'),$options); ?>
-<?= $validator->error('fid'); ?>
+// Define your array of objects with options and values
+const optionsArrayyy = <?php echo $optionsArrayJson;?>;
+const newData = [];
 
-</div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-COLOR:
+// Loop through the original data and transform it
+optionsArrayyy.forEach(item => {
+    newData.push({
+        "option": item.option,
+        "value": item.value
+    });
+});
+optionsArray=newData;
+// Function to populate the custom dropdown with options from the array
+function populateDropdown() {
+  customDropdown.innerHTML = '';
+  optionsArrayyy.forEach(function (item) {
+    const listItem = document.createElement('li');
+    listItem.textContent = item.option;
+    listItem.setAttribute('data-value', item.value);
+  
+    customDropdown.appendChild(listItem);
 
-<?= $form->textBox('color',array('class'=>'form-control')); ?>
-<?= $validator->error('color'); ?>
+    listItem.addEventListener('click', function () {
+      customInput.value = item.option;
+      customDropdown.style.display = 'none';
+    });
+  });
+}
 
-</div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-DATE:
+customInput.addEventListener('focus', function () {
+  customDropdown.style.display = 'block';
+  populateDropdown();
+});
 
-<input type="date" name="dor">
-</div>
-</div>
-<input type="submit" name="insert" value="submit">
+customInput.addEventListener('input', function () {
+  customDropdown.style.display = 'block';
+  const inputText = customInput.value.trim().toLowerCase();
+
+  populateDropdown(); // Populate the dropdown with all options
+
+  const filteredItems = customDropdown.querySelectorAll('li');
+
+  filteredItems.forEach(function (item) {
+    if (!item.textContent.toLowerCase().includes(inputText)) {
+      item.style.display = 'none';
+    } else {
+      item.style.display = 'block';
+    }
+  });
+});
+
+
+</script>
+
+
+
+
+
+
+<input type="submit" name="insert" value="Submit">
 </form>
+
 
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
