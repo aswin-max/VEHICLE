@@ -1,27 +1,79 @@
 <?php
 
 require('../../config/autoload.php'); 
-
+include("../dbcon.php");
 $a=$_SESSION["id"];
 $dao=new DataAccess();
 $join=array(
     'owner as o'=>array('o.vid=p.vid','join'),
-    'payment as pay'=>array('pay.pid=p.pid','join'),
     'fine as f'=>array('f.fine_id=p.fine_id','join'),
-);  $fields=array('o.owname as owname','f.amount','pay.payid as payid','p.pid','sum(f.amount)');
+);  $fields=array('o.owname as owname','sum(f.amount) as sum','o.vid as vd');
 
-$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and p.status=2',$join);
+$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and (p.status = 1 or p.status = 2)',$join);
 print_r($users);
 ?>
 
 
 
+<?php
+function generateRandomTransactionID($length = 10) {
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $transactionID = '';
+    
+    for ($i = 0; $i < $length; $i++) {
+        $randomIndex = mt_rand(0, strlen($characters) - 1);
+        $transactionID .= $characters[$randomIndex];
+    }
+    
+    return $transactionID;
+}
+
+// Example: Generate a 12-character random transaction ID
+$randomID = generateRandomTransactionID(12);
+
+
+?>
+<?php
+ ?>
+
+
+<?php
+
+ if(isset($_POST["pay"])) 
+ {
+    
+$sql1="select p.pid,f.amount from punish p JOIN fine f ON p.fine_id = f.fine_id where (p.status = 1 or p.status = 2) and p.vid=".$users[0]['vd'];
+$ab=$conn->query($sql1);
 
 
 
+$bc=array();
+
+
+while($row = $ab->fetch_assoc())
+{
+
+ // Use fetch_assoc to get a single row
+$bc[]=$row;
+
+}
+
+print_r($bc);
 
 
 
+$sql = "update punish set status=2 where  vid=".$users[0]['vd'].' and status=1';
+
+$conn->query($sql);
+
+
+         
+    // echo"<script> location.replace('pay/pay.php'); </script>";
+
+
+ }
+
+?>
 
 
 <html>
@@ -60,7 +112,7 @@ print_r($users);
   <div class="d-flex align-items-center justify-content-between text mb-4"> 
  <span>Total</span> 
  <span class="fas fa-rupee-sign">
-<span class="ps-1"><?=$users[0]['sum(f.amount)']?></span>
+<span class="ps-1"><?=$users[0]['sum']?></span>
  </span>
   </div> 
   <div class="border-bottom mb-4">
@@ -70,7 +122,7 @@ print_r($users);
 <span class="far fa-file-alt text">
  <span class="ps-2">Invoice ID:</span>
 </span> 
- <span class="ps-3"><?=$users[0]['payid']?></span> 
+ <span class="ps-3"><?=$randomID?></span> 
 </div> 
 <!-- <div class="d-flex flex-column mb-5"> 
  <span class="far fa-calendar-alt text">
@@ -110,7 +162,7 @@ print_r($users);
 
    
    
-</div> <form action=""> 
+</div> <form method="POST"> 
   <div class="row"> <div class="col-12"> 
  <div class="d-flex flex-column px-md-5 px-4 mb-4"> 
 <span>Credit Card</span> 
@@ -148,7 +200,7 @@ print_r($users);
   </div> 
   </div> 
   <div class="col-12 px-md-5 px-4 mt-3">
-   <div class="btn btn-primary w-100">Pay <?=$users[0]['sum(f.amount)']?>
+   <div class="btn btn-primary w-100"> <button name="pay" type="submit" value="pay" >Pay <?=$users[0]['sum']?></button>
 
    </div>
   </div>

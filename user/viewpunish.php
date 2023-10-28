@@ -1,6 +1,6 @@
 <?php require('../config/autoload.php')?>
 <?php include('header.php');
-include("dbcon.php");
+
 
 $dao=new DataAccess();
 
@@ -41,23 +41,42 @@ $dao=new DataAccess();
         
         
     );
-    //$condition="email='".$name."' and status=1";
-  
-   $join=array(
+    
+?> 
+<?php
+
+    echo"hi";
+    $a = $_SESSION['id'];
+   echo $a;
+    $join = array(
+        'owner as o' => array('o.vid = p.vid', 'join'),
+        'fine as f'=>array('f.fine_id=p.fine_id','join'),
+    );
+    $fields = array('p.vid', 'o.owno','o.vid as vd','sum(f.amount) as sum');
+
+   
+    $users = $dao->getDataJoin($fields, 'punish as p', '(p.status = 1 or p.status = 2) and o.owno = '.$a, $join);
+
+    $join=array(
         'vehicle as v'=>array('v.vid=p.vid','join'),
         'fine as f'=>array('f.fine_id=p.fine_id','join'),
-        //'rto as r'=>array('r.rid=p.rid','join'),
+       
         'officer as off'=>array('off.offid=p.offid','join'),
+
+        
         
     );  $fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','off.offname as offname','p.loc','p.date','p.pic');
 
-    $users=$dao->selectAsTable($fields,'punish as p','p.status=1',$join,$actions,$config);
+    $users12=$dao->selectAsTable($fields,'punish as p','(p.status=1 or p.status = 2) and p.vid='.$users[0]['vd'],$join,$actions,$config);
     
-    echo $users;
-                    
-                    //'r.rname as rname',
-                   
-    
+    echo $users12;
+     if(isset($_POST["insert"])) {
+
+         
+        echo"<script> location.replace('pay/pay.php'); </script>";
+
+
+ }
 ?>
 
 
@@ -72,9 +91,9 @@ $dao=new DataAccess();
         </div><!-- End row -->
 
 
-<html>
+ <html>
 <head>
-    <style>
+     <style>
         /* CSS for the clickable button */
         .clicky-button {
             background-color: #0074D9;
@@ -90,20 +109,23 @@ $dao=new DataAccess();
         .clicky-button:hover {
             background-color: #0056B3; /* Change the background color on hover */
         }
-    </style>
-</head>
-<body>
-    <button class="clicky-button" id="myButton">Click me</button>
+    </style> 
+ </head>
 
-    <script>
+<body>
+<form method="POST">
+    <button name="insert" class="clicky-button" id="myButton">Pay <?=$users[0]['sum']?></button>
+
+     <!-- <script>
         // JavaScript to handle the button click and navigate to a new page
         document.getElementById("myButton").addEventListener("click", function() {
             // Change the page location to the desired URL
             window.location.href = "pay/pay.php";
         });
-    </script>
+    </script>  -->
+</form>
 </body>
-</html>
+</html> 
 
 
 
