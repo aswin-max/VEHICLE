@@ -17,7 +17,7 @@ $dao=new DataAccess();
                     <tr>
                     <th>SL NO.</th>
                         <th>Vehicle-NUMBER</th>
-                        <th>Vehicle-Name</th>
+                        <th>OFFENCE</th>
                         
                         <th>OFFICER</th>
                         <th>LOCATION</th>
@@ -55,8 +55,10 @@ $dao=new DataAccess();
     $fields = array('p.vid', 'o.owno','o.vid as vd','sum(f.amount) as sum');
 
    
-    $users = $dao->getDataJoin($fields, 'punish as p', '(p.status = 1 or p.status = 2) and o.owno = '.$a, $join);
-
+    $users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 1 and o.owno = '.$a, $join);
+if(isset($users[0]['vd']))
+{
+     $msg1="";
     $join=array(
         'vehicle as v'=>array('v.vid=p.vid','join'),
         'fine as f'=>array('f.fine_id=p.fine_id','join'),
@@ -65,18 +67,29 @@ $dao=new DataAccess();
 
         
         
-    );  $fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','off.offname as offname','p.loc','p.date','p.pic');
+    );  $fields=array('pid','v.vrno as vrno','f.offence as offence','off.offname as offname','p.loc','p.date','p.pic');
+echo $users[0]['vd'];
+    $users12=$dao->selectAsTable($fields,'punish as p','p.status=1 and p.vid='.$users[0]['vd'],$join,$actions,$config);
+    if(!empty($users12))  
+       echo $users12;
 
-    $users12=$dao->selectAsTable($fields,'punish as p','(p.status=1 or p.status = 2) and p.vid='.$users[0]['vd'],$join,$actions,$config);
-    
-    echo $users12;
+}
+else
+{
+ $msg="no records found";
+ echo $msg;
+ $msg1="hidden";
+
+
+}
      if(isset($_POST["insert"])) {
 
          
         echo"<script> location.replace('pay/pay.php'); </script>";
 
 
- }
+ 
+}
 ?>
 
 
@@ -114,7 +127,7 @@ $dao=new DataAccess();
 
 <body>
 <form method="POST">
-    <button name="insert" class="clicky-button" id="myButton">Pay <?=$users[0]['sum']?></button>
+    <button name="insert" class="clicky-button" id="myButton" <?=$msg1?>>Pay <?=$users[0]['sum']?></button>
 
      <!-- <script>
         // JavaScript to handle the button click and navigate to a new page

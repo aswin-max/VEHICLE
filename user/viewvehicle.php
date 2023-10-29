@@ -16,11 +16,11 @@ $dao=new DataAccess();
             <div class="col-md-11">
                 <table  border="1" class="table" style="margin-top:100px;">
                     <tr>
-                    <th>VEHICLE NUMBER</th>
+                        
+                        <th>VEHICLE NUMBER</th>
                         <th>RTO-Office</th>
-                        <th>Vehicle-NUMBER</th>
+                        <th>Vehicle-NAME</th>
                         <th>Owner-Name</th>
-                        <th>Vehicle-Name</th>
                         <th>Fuel</th>
                         <th>TYPE</th>
                         <th>Colour</th>
@@ -32,12 +32,10 @@ $dao=new DataAccess();
     $actions=array(
 
     );
-
+    
     $config=array(
-        
-        'srno'=>true,
-        'hiddenfields'=>array('vid'),
-'actions_td'=>false,
+      
+      
          'images'=>array(
                         'field'=>'rc',
                         'path'=>'../uploads/',
@@ -47,14 +45,15 @@ $dao=new DataAccess();
         
     );
     //$condition="email='".$name."' and status=1";
-  
+  $a = $_SESSION['id'];
    $join=array(
         'rto as r'=>array('r.rid=v.rid','join'),
         'type as t'=>array('t.tid=v.tid','join'),
         'fuel as f'=>array('f.fid=v.fid','join'),
-    );  $fields=array('vrno','vname','r.rname as rname','vehiclename','f.fname as fname','t.tname as tname','color','dor','rc');
+        'owner as o'=>array('o.vid=v.vid','join'),
+    );  $fields=array('vrno','r.rname as rname','vehiclename','o.owname as owname','f.fname as fname','t.tname as tname','color','dor','rc');
 
-    $users=$dao->selectAsTable($fields,'vehicle as v',1,$join,$actions,$config);
+    $users=$dao->selectAsTable($fields,'vehicle as v','o.owno = '.$a,$join,$actions,$config);
     
     echo $users;
                     

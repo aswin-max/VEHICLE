@@ -4,13 +4,15 @@ require('../../config/autoload.php');
 include("../dbcon.php");
 $a=$_SESSION["id"];
 $dao=new DataAccess();
+$file = new FileUpload();
+$elements = array("pid" => "", "amount" => "");
 $join=array(
     'owner as o'=>array('o.vid=p.vid','join'),
     'fine as f'=>array('f.fine_id=p.fine_id','join'),
-);  $fields=array('o.owname as owname','sum(f.amount) as sum','o.vid as vd');
+);  $fields=array('p.pid as pid','o.owname as owname','f.amount as amo','sum(f.amount) as sum','o.vid as vd');
 
-$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and (p.status = 1 or p.status = 2)',$join);
-print_r($users);
+$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and p.status = 1',$join);
+
 ?>
 
 
@@ -32,17 +34,19 @@ function generateRandomTransactionID($length = 10) {
 $randomID = generateRandomTransactionID(12);
 
 
+
+$_SESSION['ranid']=$randomID;
 ?>
 <?php
  ?>
 
 
 <?php
-
+$today = date("Y-m-d");
  if(isset($_POST["pay"])) 
  {
     
-$sql1="select p.pid,f.amount from punish p JOIN fine f ON p.fine_id = f.fine_id where (p.status = 1 or p.status = 2) and p.vid=".$users[0]['vd'];
+$sql1="select p.pid as pid,f.amount as amt from punish p JOIN fine f ON p.fine_id = f.fine_id where p.status = 1 and p.vid=".$users[0]['vd'];
 $ab=$conn->query($sql1);
 
 
@@ -71,9 +75,27 @@ $conn->query($sql);
     // echo"<script> location.replace('pay/pay.php'); </script>";
 
 
- }
+      
+     
+
+     foreach ($bc as $row)
+     {
+        $data = array(
+            'pid' => $row['pid'],
+            'amount' => $row['amt'],
+            'date' => $today,
+
+        );
+
+        $dao->insert($data, "payment");
+        
+
+     }
+
+ }   
 
 ?>
+
 
 
 <html>

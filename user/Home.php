@@ -5,7 +5,9 @@
 <div id="slides-shop" class="cover-slides">
         <ul class="slides-container">
             <li class="text-center">
-                <img src="images/bang1.jpg"  alt="" height="500" width="1400">
+               
+
+                <img src="images/helmet.jpg"  alt="" height="500" width="1400">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -31,7 +33,8 @@
                             <div class="type-lb">
                                 <!-- <p class="sale">Sale</p> -->
                             </div>
-                            <img src="images/Pinarayi-Vijayan.jpg" class="img-fluid" alt="Image"  >
+                            <img src="images/Pinarayi-Vijayan.jpg"  height="100px"  >
+                            <!-- <img src="images/helmet.jpg" class="img-fluid"   > -->
                             <!-- <div class="mask-icon"> -->
                                 <!-- <ul> -->
                                     <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li> -->
@@ -55,7 +58,7 @@
                             <div class="type-lb">
                                 <!-- <p class="new">New</p> -->
                             </div>
-                            <img src="images/antony.jpeg" class="img-fluid" alt="Image" >
+                            <img src="images/antony.jpeg" class="img-fluid" height="10px" >
                             <!-- <div class="mask-icon"> -->
                                 <!-- <ul> -->
                                     <!-- <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li> -->
@@ -73,13 +76,13 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 special-grid top-featured">
+                <div class="col-lg-3 col-md-6 special-grid top-featured h-100">
                     <div class="products-single fix">
                         <div class="box-img-hover">
                             <div class="type-lb">
                                 
                             </div>
-                            <img src="images/ajith.jpeg" class="img-fluid" alt="Image">
+                            <img src="images/ajith.jpeg" class="img-fluid" height="10px">
                             
                         </div>
                         <div class="why-text">
@@ -119,10 +122,10 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="vehicleno.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="viewpunish.php"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
-                                    <h4>Payment</h4>
+                                    <h4>Challan</h4>
                                     <p>Petiton Payment</p>
                                 </div>
                             </div>
@@ -132,12 +135,12 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login.php"> <i class="fa fa-gift"></i> </a>
+                                    <a href="viewvehicle.php"> <i class="fa fa-gift"></i> </a>
                                 </div>
                 
                                 <div class="service-desc">
-                                    <h4>Re-regitration</h4>
-                                    <p>Vehicle Re-regitration</p>
+                                    <h4>RC</h4>
+                                    <p>Vehicle Details</p>
                                 </div>
                             </div>
                         </div>
@@ -149,8 +152,8 @@
                                     <a href="owner.php"> <i class="fa fa-location-arrow"></i> </a>
                                 </div>
                                 <div class="service-desc">
-                                    <h4>Owner-ship Change</h4>
-                                    <p>Owner-ship Change</p>
+                                    <h4>Receipt</h4>
+                                    <p>Payment History</p>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +163,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="#"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="MV ACT.html"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Downloads</h4>
@@ -176,8 +179,8 @@
                                     <a href="viewfee.php"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
-                                    <h4>Fees</h4>
-                                    <p>Rate of Fees</p>
+                                    <h4>History</h4>
+                                    <p>History Of Offence</p>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +189,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="rules.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="OFFENCEPDF.html"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Road-Safty Rules</h4>
