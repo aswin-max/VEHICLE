@@ -1,7 +1,7 @@
 <html>
 
-><head>
-	<title>Login V17</title>
+<head>
+	<title>Login</title>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
@@ -33,16 +33,15 @@ if(isset($_POST['login']))
         if($info=$dao->login($data,'officer'))
         {
            
-            $_SESSION['officer']=$info['offuser'];
+            $_SESSION['id']=$info['offid'];
+            $_SESSION['name']=$info['offuser'];
 $a=$_SESSION['officer'];
 
-	echo "<script> alert('$a');</script> ";	
 		
-   echo"<script> location.replace('type.php'); </script>";
 			
            // header('location:student/index.html');
        
-
+           echo"<script> location.replace('/vehicle/police/sidebar.php'); </script>";
 
  }
         else{

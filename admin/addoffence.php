@@ -1,7 +1,8 @@
 <?php 
 
- require('../config/autoload.php'); 
-include("header.php");
+ require('../config/autoload.php'); ?>
+ <?php
+ include("sidebar.php");
 $file=new FileUpload();
 $elements=array(
         "OFFENCE"=>"","AMOUNT"=>"","tid"=>"");
@@ -26,7 +27,7 @@ $rules=array(
     
 $validator = new FormValidator($rules,$labels);
 
-if(isset($_POST["insert"]))
+if(isset($_POST["reset"]))
 {
 
 if($validator->validate($_POST))
@@ -43,7 +44,7 @@ $data=array(
          
     );
 
-    print_r($data);
+   
   
     if($dao->insert($data,"fine"))
     {
@@ -67,38 +68,43 @@ echo $file->errors();
 </head>
 <body>
 
- <form action="" method="POST" enctype="multipart/form-data">
-
- type:
-
-<?php
+ 
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"></h4>
+            <p class="card-description"></p>
+            <form class="forms-sample" method="POST" enctype="multipart/form-data" action="addoffence.php">
+                <div class="form-group row">
+                    <label for="date" class="col-sm-3 col-form-label">TYPE</label>
+                    <div class="col-sm-9">
+                    <?php
      $options = $dao->createOptions('tname','tid',"type");
      echo $form->dropDownList('tid',array('class'=>'form-control'),$options); ?>
 <?= $validator->error('tid'); ?>
-
-
-<div class="row">
-                    <div class="col-md-6">
-OFFENCE:
-
-<?= $form->textBox('OFFENCE',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="loc" class="col-sm-3 col-form-label">OFFENCE</label>
+                    <div class="col-sm-9">
+                    <?= $form->textBox('OFFENCE',array('class'=>'form-control')); ?>
 <?= $validator->error('OFFENCE'); ?>
-
-</div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-AMOUNT:
-
-<?= $form->textBox('AMOUNT',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vid" class="col-sm-3 col-form-label">AMOUNT</label>
+                    <div class="col-sm-9">
+                    <?= $form->textBox('AMOUNT',array('class'=>'form-control')); ?>
 <?= $validator->error('AMOUNT'); ?>
-
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mr-2" name="reset">Submit</button>
+                <button class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+    </div>
 </div>
-</div>
-
-
-<button type="submit" name="insert">Submit</button>
-</form>
 
 
 </body>

@@ -1,10 +1,10 @@
 <?php 
 
  require('../config/autoload.php'); 
-include("header.php");
+ include("sidebar.php");
 $file=new FileUpload();
 $elements=array(
-        "offname"=>"","offuser"=>"","offpass"=>"","offimg"=>"","rid"=>"");
+        "offuser"=>"","offpass"=>"","offimg"=>"","rid"=>"");
 
 
 $form=new FormAssist($elements,$_POST);
@@ -13,10 +13,10 @@ $form=new FormAssist($elements,$_POST);
 
 $dao=new DataAccess();
 
-$labels=array('offname'=>"offname",'offuser'=>"offuser",'offpass'=>"offpass",'offimg'=>"offimg",'rid'=>"rname");
+$labels=array('offuser'=>"offuser",'offpass'=>"offpass",'offimg'=>"offimg",'rid'=>"rname");
 
 $rules=array(
-    "offname"=>array("required"=>true,"alphaspaceonly"=>true),
+    
     "offuser"=>array("required"=>true),
     "offpass"=>array("required"=>true,"minlength"=>6,"maxlength"=>14),
     "offimg"=>array("filerequired"=>true),
@@ -28,7 +28,7 @@ $rules=array(
     
 $validator = new FormValidator($rules,$labels);
 
-if(isset($_POST["insert"]))
+if(isset($_POST["reset"]))
 {
 
 if($validator->validate($_POST))
@@ -39,7 +39,7 @@ if($validator->validate($_POST))
 
 $data=array(
 
-        'offname'=>$_POST['offname'],
+        
         'offuser'=>$_POST['offuser'],
         'offpass'=>$_POST['offpass'],
          'rid'=>$_POST['rid'],
@@ -72,59 +72,49 @@ echo $file->errors();
 </head>
 <body>
 
- <form action="" method="POST" enctype="multipart/form-data">
-
- rto:
-
-<?php
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"></h4>
+            <p class="card-description"></p>
+            <form class="forms-sample" method="POST" enctype="multipart/form-data" action="officer.php">
+                <div class="form-group row">
+                    <label for="date" class="col-sm-3 col-form-label">RTO</label>
+                    <div class="col-sm-9">
+                    <?php
      $options = $dao->createOptions('rname','rid',"rto");
      echo $form->dropDownList('rid',array('class'=>'form-control'),$options); ?>
 <?= $validator->error('rid'); ?>
-
-
-
-<div class="row">
-                    <div class="col-md-6">
-offname:
-
-<?= $form->textBox('offname',array('class'=>'form-control')); ?>
-<?= $validator->error('offname'); ?>
-
-</div>
-</div>
-
-<div class="row">
-                    <div class="col-md-6">
-offuser:
-
-<?= $form->textBox('offuser',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="loc" class="col-sm-3 col-form-label">NAME</label>
+                    <div class="col-sm-9">
+                    <?= $form->textBox('offuser',array('class'=>'form-control')); ?>
 <?= $validator->error('offuser'); ?>
-
-</div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-offpass:
-
-<?= $form->textBox('offpass',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vid" class="col-sm-3 col-form-label">PASSWORD</label>
+                    <div class="col-sm-9">
+                    <?= $form->textBox('offpass',array('class'=>'form-control')); ?>
 <?= $validator->error('offpass'); ?>
-
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="vid" class="col-sm-3 col-form-label">IMAGE</label>
+                    <div class="col-sm-9">
+                    <?= $form->fileField('offimg', array('class' => 'form-control')); ?>
+                            <span style="color:red;"><?= $validator->error('offimg'); ?></span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mr-2" name="reset">Submit</button>
+                <button class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+    </div>
 </div>
-</div>
-<div class="row">
-                    <div class="col-md-6">
-offimage:
-
-<?= $form->fileField('offimg',array('class'=>'form-control')); ?>
-<span style="color:red;"><?= $validator->error('offimg'); ?></span>
-
-</div>
-</div>
-
-
-<button type="submit" name="insert">Submit</button>
-</form>
-
 
 </body>
 

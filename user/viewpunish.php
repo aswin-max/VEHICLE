@@ -22,7 +22,9 @@ $dao=new DataAccess();
                         <th>OFFICER</th>
                         <th>LOCATION</th>
                         <th>DATE OF OFFENCE</th>
-                        <th>PICTURE</th>   
+                         
+                        <th>AMOUNT</th> 
+                        <th>PICTURE</th>  
                     </tr>
 <?php
     
@@ -31,8 +33,8 @@ $dao=new DataAccess();
     );
 
     $config=array(
-        
-
+        'srno'=>true,
+        'hiddenfields'=>array('pid'),
          'images'=>array(
                         'field'=>'pic',
                         'path'=>'../uploads/',
@@ -67,7 +69,7 @@ if(isset($users[0]['vd']))
 
         
         
-    );  $fields=array('pid','v.vrno as vrno','f.offence as offence','off.offname as offname','p.loc','p.date','p.pic');
+    );  $fields=array('pid','v.vrno as vrno','f.offence as offence','off.offuser as offname','p.loc','p.date','f.amount','p.pic');
 echo $users[0]['vd'];
     $users12=$dao->selectAsTable($fields,'punish as p','p.status=1 and p.vid='.$users[0]['vd'],$join,$actions,$config);
     if(!empty($users12))  

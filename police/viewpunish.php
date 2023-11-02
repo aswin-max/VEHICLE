@@ -1,5 +1,5 @@
-<?php require('../config/autoload.php')?>
-<?php include('header.php');
+
+<?php include("sidebar.php");
 include("dbconn.php");
 
 $dao=new DataAccess();
@@ -54,7 +54,7 @@ $dao=new DataAccess();
         //'rto as r'=>array('r.rid=p.rid','join'),
         'officer as off'=>array('off.offid=p.offid','join'),
         
-    );  $fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','off.offname as offname','p.loc','p.date','p.pic');
+    );  $fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','off.offuser as offname','p.loc','p.date','p.pic');
 
     $users=$dao->selectAsTable($fields,'punish as p','p.status=1',$join,$actions,$config);
     

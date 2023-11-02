@@ -1,7 +1,7 @@
 <?php 
 
  require('../config/autoload.php'); 
-include("header.php");
+ include("sidebar.php");
 $file=new FileUpload();
 $elements=array(
         "rname"=>"","regid"=>"");

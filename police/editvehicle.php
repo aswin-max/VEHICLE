@@ -1,7 +1,8 @@
 <?php 
 
  require('../config/autoload.php'); 
-include("header.php");$dao=new DataAccess();
+ include("sidebar.html");
+ $dao=new DataAccess();
 $info=$dao->getData('*','vehicle','vid='.$_GET['id']);
 $file=new FileUpload();
 $elements=array(

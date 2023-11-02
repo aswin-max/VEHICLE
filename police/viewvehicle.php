@@ -1,5 +1,5 @@
 <?php require('../config/autoload.php')?>
-<?php include('header.php');
+<?php include("sidebar.php");
 //include("dbconn.php");
 
 $dao=new DataAccess();

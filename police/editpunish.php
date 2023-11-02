@@ -1,7 +1,7 @@
 <?php
 require('../config/autoload.php'); 
 
-include("header.php");
+include("sidebar.html");
 $dao = new DataAccess();
 $info=$dao->getData('*','punish','pid='.$_GET['id']);
 $file = new FileUpload();

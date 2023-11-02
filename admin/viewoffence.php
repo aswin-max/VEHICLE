@@ -2,12 +2,13 @@
 <?php require('../config/autoload.php'); ?>
 
 <?php
+include("sidebar.php");
 $dao=new DataAccess();
 
 
 
 ?>
-<?php include('header.php'); ?>
+<?php  ?>
 
     
     <div class="container_gray_bg" id="home_feat_1">
