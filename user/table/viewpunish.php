@@ -225,7 +225,7 @@ if (isset($_POST['pay'])) {
     echo "<script> location.replace('../pay/pay.php'); </script>";
 }
 ?>
-
+   
     
 
 
