@@ -55,7 +55,7 @@ $dao = new DataAccess();
                         if (!empty($users12)) {
                             foreach ($users12 as $row) {
                                 echo '<tr>';
-                                
+                                // echo '<td>' . $row[''] . '</td>';
                                 echo '<td>' . $row['vrno'] . '</td>';
                                 echo '<td>' . $row['offence'] . '</td>';
                                 echo '<td>' . $row['offname'] . '</td>';

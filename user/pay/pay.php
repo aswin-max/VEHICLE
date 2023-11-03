@@ -3,6 +3,7 @@
 require('../../config/autoload.php'); 
 include("../dbcon.php");
 $a=$_SESSION["id"];
+$b=$_SESSION['totalAmount'];
 $dao=new DataAccess();
 $file = new FileUpload();
 $elements = array("pid" => "", "amount" => "");
@@ -134,7 +135,7 @@ $conn->query($sql);
   <div class="d-flex align-items-center justify-content-between text mb-4"> 
  <span>Total</span> 
  <span class="fas fa-rupee-sign">
-<span class="ps-1"><?=$users[0]['sum']?></span>
+<span class="ps-1"><?php print $b; ?></span>
  </span>
   </div> 
   <div class="border-bottom mb-4">
@@ -222,7 +223,7 @@ $conn->query($sql);
   </div> 
   </div> 
   <div class="col-12 px-md-5 px-4 mt-3">
-   <div class="btn btn-primary w-100"> <button name="pay" type="submit" value="pay" >Pay <?=$users[0]['sum']?></button>
+   <div class="btn btn-primary w-100"> <button name="pay" type="submit" value="pay" >Pay</button>
 
    </div>
   </div>
