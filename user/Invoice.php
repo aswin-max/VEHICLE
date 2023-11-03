@@ -8,41 +8,32 @@ $join=array(
     'fine as f'=>array('f.fine_id=p.fine_id','join'),
 );  $fields=array('o.owname as owname','sum(f.amount) as sum','o.vid as vd');
 
-$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and (p.status = 1 or p.status = 2)',$join);
+$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and p.status = 1',$join);
+
+$join=array(
+    'vehicle as v'=>array('v.vid=p.vid','join'),
+    'fine as f'=>array('f.fine_id=p.fine_id','join'),
+   
+    'officer as off'=>array('off.offid=p.offid','join'),
+
+    
+    
+);  $fields=array('pid','v.vrno as vrno','f.offence as offence','off.offuser as offname','p.loc','p.date','f.amount as amount','p.pic');
+echo $users[0]['vd'];
+$users12=$dao->selectAsTable($fields,'punish as p','p.status=1 and p.vid='.$users[0]['vd'],$join,$actions,$config);
 
 
-?>
+$abc=$users[0]['vd'];
+$pid=$users[0]['pid'];
+$amount=$users[0]['amount'];
 
-<?php  
- //session_start();
-include("dbcon.php");
-require('../config/autoload.php');
-$dao=new DataAccess();
-?>
-<?php
-$name=$_SESSION['email'] ;
-
-$q1="select * from cart where status=1 and uemail='".$name."'";
-$result1 = $conn->query($q1);
-
-if ($result1->num_rows > 0) {
-
-    while($row = $result1->fetch_assoc()) {
-		
-      $cart_id=$row['cart_id'];
-      $amount=$row['total'];
-      $a=$row["qty"];
-      $b=$row["itid"];
-     // $sql12 =" UPDATE item40 SET qty=qty- $a WHERE itid=$b" ;
-      //$conn->query($sql12);
-}
-}
 $datenow=new DateTime();
 $datenow=$datenow->format('Y-m-d H:i:s');
 echo $datenow;
 $date=explode(' ',$datenow);
-$sql11 =" UPDATE cart SET status=2 WHERE status=1 and uemail='$name'" ;
-$sql12="INSERT INTO booking (amount,cart_id,btime) VALUES ('$amount' ,'$cart_id','$datenow');";
+$a = $_SESSION['id'];
+$sql11 =" UPDATE punish SET status=2 WHERE status=1 and p.vid='$abc'" ;
+$sql12="INSERT INTO payment(pid,amount,pdate) VALUES ('$amount' ,'$pid','$datenow');";
 if ($conn->query($sql11) === TRUE && $conn->query($sql12) === TRUE) {
 	echo "<script> alert('Payment Sucessfully');</script> ";
    
