@@ -1,13 +1,23 @@
 
 <?php include('header1.php')?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flickity@2.2.2/dist/flickity.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flickity@2.2.2/dist/flickity.pkgd.min.js"></script>
+<head>
 
+</head>
+<body>
 
+</head>
 <div id="slides-shop" class="cover-slides">
         <ul class="slides-container">
             <li class="text-center">
                
+            <div class="carousel">
+  <div class="carousel-cell"><img src="images/helmet.jpg" alt="Image 1"></div>
+  <div class="carousel-cell"><img src="images/mobile.jpg" alt="Image 2"></div>
+  <div class="carousel-cell"><img src="images/helmet.jpg" alt="Image 3"></div>
+</div>
 
-                <img src="images/helmet.jpg"  alt="" height="500" width="1400">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -33,7 +43,7 @@
                             <div class="type-lb">
                                 <!-- <p class="sale">Sale</p> -->
                             </div>
-                            <img src="images/Pinarayi-Vijayan.jpg"  height="100px"  >
+                            <img src="../user/images/cm.jpg"  height="100px"  >
                             <!-- <img src="images/helmet.jpg" class="img-fluid"   > -->
                             <!-- <div class="mask-icon"> -->
                                 <!-- <ul> -->
@@ -122,7 +132,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login/ownerlog.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="viewpunish.php"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Challan</h4>
@@ -135,7 +145,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login/ownerlog.php"> <i class="fa fa-gift"></i> </a>
+                                    <a href="table/viewvehicle.php"> <i class="fa fa-gift"></i> </a>
                                 </div>
                 
                                 <div class="service-desc">
@@ -149,7 +159,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login/ownerlog.php"> <i class="fa fa-location-arrow"></i> </a>
+                                    <a href="owner.php"> <i class="fa fa-location-arrow"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Receipt</h4>
@@ -163,7 +173,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login/ownerlog.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="MV ACT.html"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Downloads</h4>
@@ -176,7 +186,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login/ownerlog.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="viewfee.php"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>History</h4>
@@ -189,7 +199,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="login/ownerlog.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="OFFENCEPDF.html"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Road-Safty Rules</h4>
@@ -205,6 +215,18 @@
     </div>
 </div>
     <!-- End Categories -->
+
+    <script>
+  // Wait for the page to load
+  document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.querySelector(".carousel");
+    const flkty = new Flickity(carousel, {
+      autoPlay: 3000, // Auto-play with a 3-second delay
+      wrapAround: true, // Allows for infinite looping
+      pageDots: false, // Hide page dots
+    });
+  });
+</script>
 
 
 

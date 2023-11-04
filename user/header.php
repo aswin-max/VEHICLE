@@ -1,8 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
 
 <head>
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -54,7 +57,7 @@
 </head>
 
 <body>
-    <!-- Start Main Top -->
+    <!-- Start Main Top
     <div class="main-top">
         <div class="container-fluid">
             <div class="row">
@@ -73,7 +76,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Main Top -->
 
     <!-- Start Main Top -->
@@ -86,7 +89,7 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""   height="50" width="100"></a>
+                        <a class="navbar-brand" ><img src="<?=BASE_URL?>user/images/mvd.png" class="logo" alt=""   height="70" width="100"></a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -118,7 +121,6 @@
 
 </header>
   
-<body>
 
 
        

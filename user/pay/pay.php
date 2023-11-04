@@ -3,7 +3,14 @@
 require('../../config/autoload.php'); 
 include("../dbcon.php");
 $a=$_SESSION["id"];
-$b=$_SESSION['totalAmount'];
+ $retrievedArray = unserialize($_SESSION['myArray']);
+//      print_r($retrievedArray);
+//   echo $retrievedArray[0][0];
+$b=0;
+foreach($retrievedArray as $row)
+$b+=$row[1];
+
+
 $dao=new DataAccess();
 $file = new FileUpload();
 $elements = array("pid" => "", "amount" => "");
@@ -46,54 +53,36 @@ $_SESSION['ranid']=$randomID;
 $today = date("Y-m-d");
  if(isset($_POST["pay"])) 
  {
-    
-$sql1="select p.pid as pid,f.amount as amt from punish p JOIN fine f ON p.fine_id = f.fine_id where p.status = 1 and p.vid=".$users[0]['vd'];
-$ab=$conn->query($sql1);
-
-
-
-$bc=array();
-
-
-while($row = $ab->fetch_assoc())
-{
-
- // Use fetch_assoc to get a single row
-$bc[]=$row;
-
-}
-
-print_r($bc);
-
-
-
-$sql = "update punish set status=2 where  vid=".$users[0]['vd'].' and status=1';
+    foreach($retrievedArray as $row)
+    {
+      $sql = "update punish set status=2 where  vid=".$users[0]['vd']." and status=1 and pid=".$row[0];
 
 $conn->query($sql);
+$data = array(
+            'pid' => $row[0],
+            'amount' => $row[1],
+            'pdate' => $today,
+
+        );
+        $dao->insert($data, "payment");
+        
+
+
+    }
+
+
 
 
          
     // echo"<script> location.replace('pay/pay.php'); </script>";
 
 
-      
-     
-
-     foreach ($bc as $row)
-     {
-        $data = array(
-            'pid' => $row['pid'],
-            'amount' => $row['amt'],
-            'date' => $today,
-
-        );
-
-        $dao->insert($data, "payment");
-        
-
-     }
-
+    
  }   
+
+
+
+
 
 ?>
 

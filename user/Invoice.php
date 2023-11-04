@@ -3,27 +3,31 @@
 
 
 $dao=new DataAccess();
-$join=array(
-    'owner as o'=>array('o.vid=p.vid','join'),
-    'fine as f'=>array('f.fine_id=p.fine_id','join'),
-);  $fields=array('o.owname as owname','sum(f.amount) as sum','o.vid as vd');
-
-$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and p.status = 1',$join);
-
-$join=array(
-    'vehicle as v'=>array('v.vid=p.vid','join'),
-    'fine as f'=>array('f.fine_id=p.fine_id','join'),
-   
-    'officer as off'=>array('off.offid=p.offid','join'),
-
-    
-    
-);  $fields=array('pid','v.vrno as vrno','f.offence as offence','off.offuser as offname','p.loc','p.date','f.amount as amount','p.pic');
-echo $users[0]['vd'];
-$users12=$dao->selectAsTable($fields,'punish as p','p.status=1 and p.vid='.$users[0]['vd'],$join,$actions,$config);
 
 
-$abc=$users[0]['vd'];
+$a = $_SESSION['id'];
+$join = array(
+    'owner as o' => array('o.vid = p.vid', 'join'),
+    'fine as f' => array('f.fine_id=p.fine_id', 'join'),
+    'payment as pay' => array('pay.pid=p.pid', 'join'),
+);
+$fields = array('o.owno', 'o.vid as vd','f.offence as offence','o.owname as name','pay.amount as amo','pay.pdate as date');
+
+$users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 2 and o.owno = '.$a, $join);
+
+
+// $join1=array(
+//     'punish as a'=>array('a.pid=p.pid','join'),
+// );  $fields=array('offence');
+
+// $users=$dao->selectAsTable($fields,'payment as p',1,$join1);
+echo $users;
+
+
+
+
+$abc=$users[0]['offence'];
+echo $abc;
 $pid=$users[0]['pid'];
 $amount=$users[0]['amount'];
 
@@ -31,107 +35,10 @@ $datenow=new DateTime();
 $datenow=$datenow->format('Y-m-d H:i:s');
 echo $datenow;
 $date=explode(' ',$datenow);
-$a = $_SESSION['id'];
-$sql11 =" UPDATE punish SET status=2 WHERE status=1 and p.vid='$abc'" ;
-$sql12="INSERT INTO payment(pid,amount,pdate) VALUES ('$amount' ,'$pid','$datenow');";
-if ($conn->query($sql11) === TRUE && $conn->query($sql12) === TRUE) {
-	echo "<script> alert('Payment Sucessfully');</script> ";
-   
-	$sql13 = "SELECT oid FROM booking WHERE cart_id=".$cart_id." ;";
-   $result2 = $conn->query($sql13);
-   //print_r($result2);
-   while($row = $result2->fetch_assoc()) {
-      $oid=$row['oid'];
-   }
-}
+
 
     
 	 ?>
-<div class="row">
- <div class="col-md-12">
- <div class="table-responsive">
-                                <table border="1"  id="printTable" style="width:100%" >
-                                    <thead>
-                          <center> KEKI </center>
-                           <center> N.PARAVUR </center>
-                            <tr>
-                             <th style="text-align:left">BillNo:<?=$oid?></th>
-                             
-                               <th colspan="2" style="text-align:left"></th>
-                              <th style="text-align:left" >Date:<?php echo  date("Y/m/d"); ?></th>
-                            </tr>
-                           <tr>
-                        <th>Item name</th>
-                        <th>Quantity</th>
-                        
-			<th>Rate</th>
-<th>Total</th>
-</tr>
-                      
-                                    </thead>
-                                    <tbody>
-                                   
- <?php
-
-
-$sql = "SELECT * FROM cart WHERE status=2 and cart_id='$cart_id' and uemail='$name'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-
-
- // output data of each row
-    while($row = $result->fetch_assoc()) {
-		
-      echo "<tr> <td> "  . $row["i_name"]. "</td> <td>"  . $row["qty"]. "</td> <td>" . $row["offerprice"]. "</td>  <td>" . $row["total"]. "</td>  </tr>";
-	  
-	    
-}
-}
-
-
- ?>
-
- <?php
- $sql123 = "select sum(total) as t from cart where status=2 and cart_id='$cart_id' and  uemail='$name'";
-$result123 = $conn->query($sql123);
-	   $row = $result123->fetch_assoc();
-	   $total=$row["t"];
-	    echo "<tr> <td colspan='3'  style='text-align:right'>Total:</td><td> ", $total, "</td></tr>";
-	   ?>
-       
-
-
-
-
-</table>
-
-
-
-
-     <br /><br />
-
-<input type="button" onclick="printData();" value="PRINT"  />
-
-<a href="displaycategory.php">HOME</a>
-</div>
-</div>
-</div>
-
-</form>
-
-
-
-<script>
-function printData()
-{
-   var divToPrint=document.getElementById("printTable");
-   newWin= window.open("oid");
-   newWin.document.write(divToPrint.outerHTML);
-   newWin.print();
-   newWin.close();
-}
-</script>
 
 
 <!DOCTYPE html>

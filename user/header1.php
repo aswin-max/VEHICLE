@@ -55,7 +55,7 @@
 
 <body>
     <!-- Start Main Top -->
-    <div class="main-top">
+    <!-- <div class="main-top">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Main Top -->
 
     <!-- Start Main Top -->
@@ -86,7 +86,7 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""   height="50" width="100"></a>
+                        <a class="navbar-brand" href="index.html"><img src="../user/images/mvd.png" class="logo" alt=""   height="70" width="100"></a>
                 </div>
                 <!-- End Header Navigation -->
 

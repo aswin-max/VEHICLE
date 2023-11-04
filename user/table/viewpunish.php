@@ -106,7 +106,7 @@ $dao = new DataAccess();
                    'fine as f' => array('f.fine_id=p.fine_id', 'join'),
                    'officer as off' => array('off.offid=p.offid', 'join'),
                );
-               $fields = array('p.pid', 'v.vrno as vrno', 'f.offence as offence', 'off.offuser as offname', 'p.loc as loc', 'p.date as date', 'f.amount as amo', 'p.pic as pic');
+               $fields = array('p.pid as pid', 'v.vrno as vrno', 'f.offence as offence', 'off.offuser as offname', 'p.loc as loc', 'p.date as date', 'f.amount as amo', 'p.pic as pic');
                $users12 = $dao->getDataJoin($fields, 'punish as p', 'p.status=1 and p.vid=' .$users[0]['vd'], $join);  
                if (!empty($users12)) {
                             foreach ($users12 as $row) { 
@@ -115,7 +115,7 @@ $dao = new DataAccess();
                 echo'<tr scope="row">';
                 echo '<th scope="row">';
                 echo '<label class="control control--checkbox">';
-                echo '<input type="checkbox" class="js-check-row" data-amount="' . $row['amo'] . '"/>';
+                echo '<input type="checkbox" class="js-check-row" data-amount="' . $row['amo'] . '" data-pid="' . $row['pid'] . '"/>';
 
                 echo '<div class="control__indicator"></div>';
                 echo '</label>';
@@ -163,6 +163,7 @@ $dao = new DataAccess();
   <form method="POST">
     <button name="pay" class="clicky-button" id="myButton" <?=$msg1?>>PAY 0</button>
     <input type="hidden" id="totalAmountInput" name="totalAmount" value="0">
+    <input type="hidden" name="arrayData" id="arrayData">
 </form>
 
 <script>
@@ -187,10 +188,22 @@ $dao = new DataAccess();
 
     function calculateTotal() {
         var totalAmount = 0;
+        var data=[];
+        
+        
         checkboxes.forEach(function (checkbox) {
             if (checkbox.checked) {
                 var amount = parseFloat(checkbox.getAttribute('data-amount'));
                 totalAmount += amount;
+                var pid = parseFloat(checkbox.getAttribute('data-pid'));
+                var set1 = [pid,amount];
+                data.push(set1);
+                console.log(data);
+                var arrayJSON = JSON.stringify(data);
+                document.getElementById('arrayData').value =arrayJSON;
+
+
+
             }
         });
 
@@ -218,11 +231,16 @@ $dao = new DataAccess();
 
 <?php
 if (isset($_POST['pay'])) {
-    // Retrieve the total amount from the hidden input field and set it in the session
-    $totalAmount = $_POST['totalAmount'];
-    $_SESSION['totalAmount'] = $totalAmount;
-
-    echo "<script> location.replace('../pay/pay.php'); </script>";
+    
+    
+    $arrayJSON =$_POST['arrayData'];
+    $arrayToStore = json_decode($arrayJSON, true);
+    $_SESSION['myArray'] = serialize($arrayToStore);
+   
+    // $retrievedArray = unserialize($_SESSION['myArray']);
+    //  print_r($retrievedArray);
+    //  echo $retrievedArray[0][0];
+   echo "<script> location.replace('../pay/pay.php'); </script>";
 }
 ?>
    
