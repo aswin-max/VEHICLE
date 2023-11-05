@@ -1,25 +1,25 @@
 <?php
-require('../config/autoload.php'); 
 
-include("sidebar.html");
+
+include("sidebar.php");
 $dao = new DataAccess();
 $info=$dao->getData('*','punish','pid='.$_GET['id']);
 $file = new FileUpload();
-$elements = array("pid" =>$info[0]['pid'], "fine_id" =>$info[0]['fine_id'],"offid" =>$info[0]['offid'], "loc" =>$info[0]['loc'], "date" =>$info[0]['date'], "pic" => "");
+$elements = array("pid" =>$info[0]['pid'], "fine_id" =>$info[0]['fine_id'],"offname" =>$info[0]['offname'], "loc" =>$info[0]['loc'], "date" =>$info[0]['date']);
 
 $form = new FormAssist($elements, $_POST);
 
 
-$labels = array('vid' => "vid", 'fine_id' => "fine_id",'offid' => "officer", 'loc' => "location", "date" => "date", "pic" => "pic");
+$labels = array('vid' => "vid", 'fine_id' => "fine_id",'offname' => "officer", 'loc' => "location", "date" => "date");
 
 $rules = array(
     "vid" => array("required" => true),
     "fine_id" => array("required" => true),
     
-    "offid" => array("required" => true),
+    "offname" => array("required" => true, "alphaspaceonly" => true),
     "loc" => array("required" => true, "alphaspaceonly" => true),
     "date" => array("required" => true),
-    "pic"=>array("filerequired"=>true)
+    
 );
 
 $validator = new FormValidator($rules, $labels);
@@ -28,17 +28,17 @@ if (isset($_POST["insert"]))
 {
     if ($validator->validate($_POST)) 
     {
-        if($fileName=$file->doUploadRandom($_FILES['pic'],array('.jpg','.png','.jpeg'),100000,1,'../uploads'))	
-    {        $rto=$_POST['vid'];
+        
+           $rto=$_POST['vid'];
         $parts = explode(".", $rto);
         $data = array(
             'vid' => $parts[0],
             'fine_id' => $_POST['fine_id'],
             
-            'offid' => $_POST['offid'],
+            'offname' => $_POST['offname'],
             'loc' => $_POST['loc'],
             'date' => $_POST['date'],
-            'pic'=>$fileName,
+            
             
         );
 
@@ -53,7 +53,7 @@ if (isset($_POST["insert"]))
     } 
     
 }
-}
+
 else 
     {
         echo $file->errors();
@@ -76,6 +76,13 @@ else
                 LOCATION:
                 <?= $form->textBox('loc', array('class' => 'form-control')); ?>
                 <?= $validator->error('loc'); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                OFFICER NAME:
+                <?= $form->textBox('offname', array('class' => 'form-control')); ?>
+                <?= $validator->error('offname'); ?>
             </div>
         </div>
 
@@ -133,31 +140,7 @@ else
         </div>
 
 
-        <?php
-        $drop = $dao->getDataJoin(array('offid', 'offname'), 'officer');
-        $dropss = [];
-        foreach ($drop as $key => $value) {
-            $drops = array("offid" => $value['offid'], "offname" => $value['offname']);
-            array_push($dropss, $drops);
-        }
-        $optionsArray4 = [];
-        foreach ($dropss as $key => $item) {
-            $optionsArray4[] = [
-                "option" => $item['offid'] . ' ' . $item['offname'],
-                "value" => $item['offid'] . ' ' . $item['offname']
-            ];
-        }
-        $optionsArrayJson4 = json_encode($optionsArray4);
-        ?>
-
-        <div class="custom-dropdown">
-            <label class="col-form-label"><b> officer</b></label><br>
-            <div class="input-container">
-                <input type="text" name="offid" id="customInput4" placeholder="Type offid or Offname" class="form-control d-inline">
-                <span class="clear-button d-inline mdi mdi-close"></span>
-            </div>
-            <ul id="customDropdown4"></ul>
-        </div>
+        
 
 
 
@@ -265,68 +248,8 @@ else
         });
     });
 </script>
-<script>
-    const customInput4 = document.getElementById('customInput4');
-    const customDropdown4 = document.getElementById('customDropdown4');
-    const optionsArray4 = <?php echo $optionsArrayJson4; ?>;
-    const newData4 = [];
-
-    optionsArray4.forEach(item => {
-        newData4.push({
-            "option": item.option,
-            "value": item.value
-        });
-    });
-
-    function populateDropdown4() {
-        customDropdown4.innerHTML = '';
-        optionsArray4.forEach(function (item) {
-            const listItem4 = document.createElement('li');
-            listItem4.textContent = item.option;
-            listItem4.setAttribute('data-value', item.value);
-
-            customDropdown4.appendChild(listItem4);
-
-            listItem4.addEventListener('click', function () {
-                customInput4.value = item.option;
-                customDropdown4.style.display = 'none';
-            });
-        });
-    }
-
-    customInput4.addEventListener('focus', function () {
-        customDropdown4.style.display = 'block';
-        populateDropdown4();
-    });
-
-    customInput4.addEventListener('input', function () {
-        customDropdown4.style.display = 'block';
-        const inputText = customInput4.value.trim().toLowerCase();
-
-        populateDropdown4();
-
-        const filteredItems = customDropdown4.querySelectorAll('li');
-
-        filteredItems.forEach(function (item) {
-            if (!item.textContent.toLowerCase().includes(inputText)) {
-                item.style.display = 'none';
-            } else {
-                item.style.display = 'block';
-            }
-        });
-    });
-</script>
 
 
-<div class="row">
-                    <div class="col-md-6">
-offence pic:
-
-<?= $form->fileField('pic',array('class'=>'form-control')); ?>
-<span style="color:red;"><?= $validator->error('pic'); ?></span>
-
-</div>
-</div>
 
 
 <button type="submit" name="insert">Submit</button>

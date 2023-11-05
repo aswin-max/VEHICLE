@@ -46,7 +46,7 @@ $name=$_SESSION['vid'] ;
 
  
 echo $name;
-$sql = "SELECT * FROM punishment WHERE status=1 and vehicleno='$name'";
+$sql = "SELECT * FROM epunishment WHERE status=1 and vehicleno='$name'";
 $result = $conn->query($sql);
 
 
@@ -83,7 +83,7 @@ if ($result->num_rows > 0) {
 
 <?php
 
-$sql11 =" UPDATE punishment SET status=2 WHERE status=1 and pid=$name" ;
+$sql11 =" UPDATE epunishment SET status=2 WHERE status=1 and pid=$name" ;
 
 if ($conn->query($sql11) === TRUE) {
 	echo "<script> alert('Payment Sucessfully');</script> ";

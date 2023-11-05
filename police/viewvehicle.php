@@ -1,4 +1,4 @@
-<?php require('../config/autoload.php')?>
+
 <?php include("sidebar.php");
 //include("dbconn.php");
 

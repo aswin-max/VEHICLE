@@ -57,7 +57,7 @@ $dao=new DataAccess();
     $fields = array('p.vid', 'o.owno','o.vid as vd','sum(f.amount) as sum');
 
    
-    $users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 1 and o.owno = '.$a, $join);
+    $users = $dao->getDataJoin($fields, 'epunish as p', 'p.status = 1 and o.owno = '.$a, $join);
 if(isset($users[0]['vd']))
 {
      $msg1="";
@@ -71,7 +71,7 @@ if(isset($users[0]['vd']))
         
     );  $fields=array('pid','v.vrno as vrno','f.offence as offence','off.offuser as offname','p.loc','p.date','f.amount','p.pic');
 echo $users[0]['vd'];
-    $users12=$dao->selectAsTable($fields,'punish as p','p.status=1 and p.vid='.$users[0]['vd'],$join,$actions,$config);
+    $users12=$dao->selectAsTable($fields,'epunish as p','p.status=1 and p.vid='.$users[0]['vd'],$join,$actions,$config);
     if(!empty($users12))  
        echo $users12;
 

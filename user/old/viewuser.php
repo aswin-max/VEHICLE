@@ -8,7 +8,7 @@ $b=$_SESSION['pid'] ;
 $_SESSION['pid'] =$b;
 
 
-$q="select * from punishment where vehicleno='$a'";
+$q="select * from epunishment where vehicleno='$a'";
 
 $info=$dao->query($q);
 
@@ -34,8 +34,8 @@ $_SESSION['amount']=$info[0]["amount"];
                         <th>ID</th>
                         <th>REGISTERED NUMBER</th>
                         <th>LOCATION</th>
-                        <th>PUNISHMENT</th>
-                        <th>PUNISHMENT-AMOUNT</th>
+                        <th>epunishMENT</th>
+                        <th>epunishMENT-AMOUNT</th>
                         <th>REGISTERED-EMAIL</th>
                         <th>PETITION-DATE</th>
                         <th>EXPIRE-DATE</th>
@@ -69,7 +69,7 @@ $_SESSION['amount']=$info[0]["amount"];
 
  $fields=array('pid','vehicleno','location','o.oname','amount','email','pdate','ldate');
 
- $users=$dao->selectAsTable($fields,'punishment as p',$condition,$join,$actions,$config);
+ $users=$dao->selectAsTable($fields,'epunishment as p',$condition,$join,$actions,$config);
  
  echo $users;           
                    

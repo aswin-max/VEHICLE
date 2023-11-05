@@ -10,11 +10,6 @@ $dao = new DataAccess();
                      $config=array(
         
 
-                        'images'=>array(
-                                       'field'=>'pic',
-                                       'path'=>'../uploads/',
-                                       'attributes'=>array('style'=>'width:100px;'))
-                       
                        
                        
                    );
@@ -90,7 +85,7 @@ $dao = new DataAccess();
               <th scope="col">LOCATION</th>
               <th scope="col">OFFICER</th>
               <th scope="col">AMOUNT</th>
-              <th scope="col">IMAGE</th>
+             
             </tr>
           </thead>
           <tbody>
@@ -104,9 +99,9 @@ $dao = new DataAccess();
                $join = array(
                    'vehicle as v' => array('v.vid=p.vid', 'join'),
                    'fine as f' => array('f.fine_id=p.fine_id', 'join'),
-                   'officer as off' => array('off.offid=p.offid', 'join'),
+                   
                );
-               $fields = array('p.pid as pid', 'v.vrno as vrno', 'f.offence as offence', 'off.offuser as offname', 'p.loc as loc', 'p.date as date', 'f.amount as amo', 'p.pic as pic');
+               $fields = array('p.pid as pid', 'v.vrno as vrno', 'f.offence as offence', 'p.offname as offname', 'p.loc as loc', 'p.date as date', 'f.amount as amo');
                $users12 = $dao->getDataJoin($fields, 'punish as p', 'p.status=1 and p.vid=' .$users[0]['vd'], $join);  
                if (!empty($users12)) {
                             foreach ($users12 as $row) { 
@@ -127,7 +122,7 @@ $dao = new DataAccess();
                 echo '<td>' . $row['loc'] . '</td>';
                 echo '<td>' . $row['offname'] . '</td>';
                 echo '<td>' . $row['amo'] . '</td>';
-                echo '<td><img src="../../uploads/' . $row['pic'] . '" style="width: 100px;" /></td>';
+                
                 echo '</tr>';
                 echo '<tr class="spacer"><td colspan="100"></td></tr>';
               }
@@ -135,9 +130,9 @@ $dao = new DataAccess();
                 echo '<tr><td colspan="8">No records found</td></tr>';
             }
         } else {
-            $msg = "no records found";
-            echo $msg;
-            $msg1 = "hidden";
+          
+          echo '<tr><td colspan="8">No records found</td></tr>';
+            
         } 
 
                                    
@@ -240,7 +235,7 @@ if (isset($_POST['pay'])) {
     // $retrievedArray = unserialize($_SESSION['myArray']);
     //  print_r($retrievedArray);
     //  echo $retrievedArray[0][0];
-   echo "<script> location.replace('../pay/pay.php'); </script>";
+   echo "<script> location.replace('../pay/pay1.php'); </script>";
 }
 ?>
    

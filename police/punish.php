@@ -1,25 +1,26 @@
 <?php
-require('../config/autoload.php');
+
 include("sidebar.php");
 $dao = new DataAccess();
 $file = new FileUpload();
-$elements = array("vid" => "", "fine_id" => "", "offid" => "", "loc" => "", "date" => "", "pic" => "");
+$elements = array("vid" => "", "fine_id" => "", "offid" => "", "loc" => "", "date" => "");
 $form = new FormAssist($elements, $_POST);
-$labels = array('vid' => "vid", 'fine_id' => "fine_id", 'offid' => "officer", 'loc' => "location", "date" => "date", "pic" => "pic");
+$labels = array('vid' => "vid", 'fine_id' => "fine_id", 'offid' => "officer", 'loc' => "location", "date" => "date");
 $offid=$_SESSION['id'];
-print_r($_SESSION);
+
 $rules = array(
     "vid" => array("required" => true),
     "fine_id" => array("required" => true),
+    "offid" => array("required" => true, "alphaspaceonly" => true),
     "loc" => array("required" => true, "alphaspaceonly" => true),
     "date" => array("required" => true),
-    "pic" => array("filerequired" => true)
+   
 );
 
 $validator = new FormValidator($rules, $labels);
 if (isset($_POST["reset"])) {
     if ($validator->validate($_POST)) {
-        if ($fileName = $file->doUploadRandom($_FILES['pic'], array('.jpg', '.png', '.jpeg'), 100000, 1, '../uploads')) {
+        
             $rto = $_POST['fine_id'];
             $parts = explode(".", $rto);
                     $rto1 = $_POST['vid'];
@@ -27,10 +28,9 @@ if (isset($_POST["reset"])) {
                     $data = array(
                         'vid' => $parts[0],
                         'fine_id' => $_POST['fine_id'],
-                        'offid' =>$offid,
+                        'offid' =>$_POST['offid'],
                         'loc' => $_POST['loc'],
                         'date' => $_POST['date'],
-                        'pic' => $fileName,
                         'status' => 1
                     );
 
@@ -40,7 +40,7 @@ if (isset($_POST["reset"])) {
                     } else {
                         $msg = "Registration failed";
                     }
-                }
+                
             }
         }
     
@@ -107,6 +107,13 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="offid" class="col-sm-3 col-form-label">OFFICER NAME</label>
+                    <div class="col-sm-9">
+                        <?= $form->textBox('offid', array('class' => 'form-control')); ?>
+                        <?= $validator->error('offid'); ?>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="vid" class="col-sm-3 col-form-label">RC NUMBER</label>
                     <div class="col-sm-9">
                         <div class="custom-dropdown">
@@ -132,13 +139,6 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                        <label for="pic" class="col-sm-3 col-form-label">PHOTO</label>
-                        <div class="col-sm-9">
-                            <?= $form->fileField('pic', array('class' => 'form-control')); ?>
-                            <span style="color:red;"><?= $validator->error('pic'); ?></span>
-                        </div>
-                    </div>
                 <button type="submit" class="btn btn-primary mr-2" name="reset">Submit</button>
                 <button class="btn btn-light">Cancel</button>
             </form>

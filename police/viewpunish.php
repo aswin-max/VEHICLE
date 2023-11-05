@@ -22,7 +22,6 @@ $dao=new DataAccess();
                         <th>OFFICER</th>
                         <th>LOCATION</th>
                         <th>DATE OF OFFENCE</th>
-                        <th>PICTURE</th>  
                         <th>EDIT/DELETE</th>   
                     </tr>
 <?php
@@ -38,11 +37,6 @@ $dao=new DataAccess();
     $config=array(
         
        
-         'images'=>array(
-                        'field'=>'pic',
-                        'path'=>'../uploads/',
-                        'attributes'=>array('style'=>'width:100px;'))
-        
         
         
     );
@@ -51,10 +45,8 @@ $dao=new DataAccess();
    $join=array(
         'vehicle as v'=>array('v.vid=p.vid','join'),
         'fine as f'=>array('f.fine_id=p.fine_id','join'),
-        //'rto as r'=>array('r.rid=p.rid','join'),
-        'officer as off'=>array('off.offid=p.offid','join'),
         
-    );  $fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','off.offuser as offname','p.loc','p.date','p.pic');
+    );  $fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','p.offname as offname','p.loc','p.date');
 
     $users=$dao->selectAsTable($fields,'punish as p','p.status=1',$join,$actions,$config);
     

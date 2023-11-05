@@ -52,7 +52,7 @@ $data=array(
 
     print_r($data);
   
-    if($dao->insert($data,"punish"))
+    if($dao->insert($data,"epunish"))
     {
         echo "<script> alert('New record created successfully');</script> ";
 

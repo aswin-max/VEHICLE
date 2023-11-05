@@ -193,11 +193,11 @@ CREATE TABLE IF NOT EXISTS `policelogin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `punishment`
+-- Table structure for table `epunishment`
 --
 
-DROP TABLE IF EXISTS `punishment`;
-CREATE TABLE IF NOT EXISTS `punishment` (
+DROP TABLE IF EXISTS `epunishment`;
+CREATE TABLE IF NOT EXISTS `epunishment` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
   `vehicleno` varchar(30) NOT NULL,
   `location` varchar(50) NOT NULL,
@@ -211,10 +211,10 @@ CREATE TABLE IF NOT EXISTS `punishment` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `punishment`
+-- Dumping data for table `epunishment`
 --
 
-INSERT INTO `punishment` (`pid`, `vehicleno`, `location`, `oid`, `amount`, `email`, `pdate`, `ldate`, `status`) VALUES
+INSERT INTO `epunishment` (`pid`, `vehicleno`, `location`, `oid`, `amount`, `email`, `pdate`, `ldate`, `status`) VALUES
 (1, 'KL10/12/123', 'MALA', '2', 2000, 'nithusafeetha@depaul.edu.in', '2022-06-07', '2022-06-07', 1);
 
 -- --------------------------------------------------------

@@ -10,7 +10,7 @@ $join=array(
     'fine as f'=>array('f.fine_id=p.fine_id','join'),
 );  $fields=array('o.owname as owname','f.amount','pay.payid as payid','p.pid','sum(f.amount)');
 
-$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.'and p.status=2',$join);
+$users=$dao->getDataJoin($fields,'epunish as p','o.owno='.$a.'and p.status=2',$join);
 print_r($users);
 ?>
 

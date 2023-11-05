@@ -33,7 +33,7 @@ $actions=array(
         
     
     
-    'delete'=>array('label'=>'Delete','link'=>'deletepunish.php','params'=>array('id'=>'vid'),'attributes'=>array('class'=>'btn btn-success'))
+    'delete'=>array('label'=>'Delete','link'=>'deleteepunish.php','params'=>array('id'=>'vid'),'attributes'=>array('class'=>'btn btn-success'))
     
     );
 

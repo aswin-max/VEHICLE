@@ -218,10 +218,13 @@
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="punish.php">Add</a>
+                                            <a class="nav-link" href="eepunish.php">E-Challan</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="viewpunish.php">View</a>
+                                            <a class="nav-link" href="epunish.php">Challan</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="viewepunish.php">View</a>
                                         </li>
                                         
                                     </ul>

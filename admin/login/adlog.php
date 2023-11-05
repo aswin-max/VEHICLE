@@ -27,7 +27,7 @@
             $password = $_POST['offpass'];
 
             // Replace this condition with your actual login logic
-            if ($username === "abi" && $password === "admin123") {
+            if ($username === "admin" && $password === "admin123") {
                 // Start a session and store the username
                 session_start();
                 $_SESSION['username'] = $username;

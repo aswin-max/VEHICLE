@@ -64,7 +64,7 @@ $dao=new DataAccess();
 );
 	$fields=array('pid','v.vrno as vrno','v.vehiclename as vehiclename','off.offname as offname','p.loc','p.date','p.pic','datefrom','todate');
 
-    $users=$dao->selectAsTable($fields,'punish as p',$condition,$join,$actions,$config);
+    $users=$dao->selectAsTable($fields,'epunish as p',$condition,$join,$actions,$config);
     
     echo $users;
                                      

@@ -40,7 +40,7 @@ if (isset($_POST["insert"]))
             'status'=>1
         );
 
-        if ($dao->insert($data, "punish")) 
+        if ($dao->insert($data, "epunish")) 
         {
             echo "<script> alert('New record created successfully');</script>";
         } 

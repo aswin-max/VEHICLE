@@ -1,3 +1,6 @@
+<?php  $username=$_SESSION['username'];
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -54,7 +57,7 @@
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img src="images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name"><?=$offname ?></span>is now following you
+                                                    <div class="notification-list-user-block"><span class="notification-list-user-name"><?=$username ?></span>is now following you
                                                         <div class="notification-date">2 days ago</div>
                                                     </div>
                                                 </div>
@@ -119,7 +122,7 @@
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name"><?=$offname ?></h5>
+                                    <h5 class="mb-0 text-white nav-user-name"><?=$username ?></h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -234,6 +237,20 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="viewofficer.php">View</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-chart-pie"></i>REPORT</a>
+                                <div id="submenu-4" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">PUNISH</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">PAYMENT</a>
                                         </li>
                                         
                                     </ul>
@@ -445,3 +462,6 @@
                 <script src="vendor/slimscroll/jquery.slimscroll.js"></script>
                 <script src="libs/js/main-js.js"></script>
     </body></html>            
+
+
+

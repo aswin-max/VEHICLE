@@ -29,7 +29,7 @@ if (isset($_POST["insert"])) {
             'date' => $_POST['date']
         );
 
-        if ($dao->insert($data, "punish")) {
+        if ($dao->insert($data, "epunish")) {
             echo "<script> alert('New record created successfully');</script>";
         } else {
             $msg = "Registration failed";

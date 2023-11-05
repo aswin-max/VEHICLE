@@ -154,11 +154,11 @@ CREATE TABLE IF NOT EXISTS `payment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `punish`
+-- Table structure for table `epunish`
 --
 
-DROP TABLE IF EXISTS `punish`;
-CREATE TABLE IF NOT EXISTS `punish` (
+DROP TABLE IF EXISTS `epunish`;
+CREATE TABLE IF NOT EXISTS `epunish` (
   `pid` int NOT NULL AUTO_INCREMENT,
   `vid` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `fine_id` int NOT NULL,
@@ -171,10 +171,10 @@ CREATE TABLE IF NOT EXISTS `punish` (
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `punish`
+-- Dumping data for table `epunish`
 --
 
-INSERT INTO `punish` (`pid`, `vid`, `fine_id`, `offid`, `loc`, `date`, `pic`, `status`) VALUES
+INSERT INTO `epunish` (`pid`, `vid`, `fine_id`, `offid`, `loc`, `date`, `pic`, `status`) VALUES
 (1, '1', 1, 1, 'Kovalam', '2023-10-02', 'a9e1ad01132cf8836776f4b14894bfe2_26d96f039209c5160c5.jpg', 1),
 (2, '2', 2, 2, 'Varkala', '2023-10-07', '16134812d26a08f87a5479120831fda5_dbece8a2c0b.jpg', 1),
 (3, '3', 3, 3, 'Kumarakom', '2023-10-10', 'dea968ac57e1878273585e48194b437f_231bc94bb6c376820732.jpg', 1),

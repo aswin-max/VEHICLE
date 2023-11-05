@@ -131,7 +131,7 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href="table/viewpunish.php"> <i class="fa fa-credit-card"></i> </a>
+                                    <a href="table/viewepunish.php"> <i class="fa fa-credit-card"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Challan</h4>
