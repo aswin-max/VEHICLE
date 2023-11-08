@@ -71,7 +71,12 @@ $dao = new DataAccess();
     
   </head>
   <body>
-  
+  <?php
+    if (isset($_POST['add'])) {
+
+   echo "<script> location.replace('../addmiss.php'); </script>";
+}
+?>
 
   <div class="content">
     
@@ -108,15 +113,40 @@ $dao = new DataAccess();
           echo '<tr><td colspan="8">No records found</td></tr>';
       }     
         
-
-                                   
+                           
                                     
                 
             
       ?>
+     
+
+
+  <style>
+        /* CSS for the clickable button */
+        .clicky-button {
+            background-color: #0074D9;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            margin-left: 300px;
+            
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Add a smooth transition */
+        }
+
+        /* CSS for the hover effect */
+        .clicky-button:hover {
+            background-color: #0056B3; /* Change the background color on hover */
+        }
+    </style> 
+ 
       
           </tbody>
-        </table>
+        </table> <form method="POST">
+      <button name="add" class="clicky-button">ADD</button>
+      
+  </form> 
       </div>
 
 

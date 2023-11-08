@@ -39,7 +39,7 @@ $actions=array(
 
                     $config=array(
       
-      
+                      'hiddenfields' => array('vid'),
                         'images'=>array(
                                        'field'=>'rc',
                                        'path'=>'../../uploads/',

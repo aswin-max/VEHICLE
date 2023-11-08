@@ -1,8 +1,6 @@
 <?php
 require('../../config/autoload.php'); 
 $dao=new DataAccess();
-
-
   $elements1=array(
         "name"=>"","phone"=>"","pass"=>"","cpass"=>"","email"=>"");
 

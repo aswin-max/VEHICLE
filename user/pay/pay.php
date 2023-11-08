@@ -19,7 +19,7 @@ $join=array(
     'fine as f'=>array('f.fine_id=p.fine_id','join'),
 );  $fields=array('p.pid as pid','o.owname as owname','f.amount as amo','sum(f.amount) as sum','o.vid as vd');
 
-$users=$dao->getDataJoin($fields,'epunish as p','o.owno='.$a.' and p.status = 1',$join);
+$users=$dao->getDataJoin($fields,'punish as p','o.owno='.$a.' and p.status = 1',$join);
 
 ?>
 
@@ -52,7 +52,7 @@ $today = date("Y-m-d");
  {
     foreach($retrievedArray as $row)
     {
-      $sql = "update epunish set status=2 where  vid=".$users[0]['vd']." and status=1 and pid=".$row[0];
+      $sql = "update punish set status=2 where  vid=".$users[0]['vd']." and status=1 and pid=".$row[0];
 
 $conn->query($sql);
 $data = array(

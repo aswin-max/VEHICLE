@@ -9,11 +9,11 @@ $a = $_SESSION['id'];
 $join = array(
     'owner as o' => array('o.vid = p.vid', 'join'),
     'fine as f' => array('f.fine_id=p.fine_id', 'join'),
-    'payment1 as pay' => array('pay.pid=p.pid', 'join'),
+    'epayment as pay' => array('pay.pid=p.pid', 'join'),
 );
 $fields = array('o.owno','o.phone as phone','o.email as email', 'o.vid as vd','f.offence as offence','pay.invid as invid','o.owname as name','pay.amount as amo','pay.pdate as date');
 
-$users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 2 and o.owno = '.$a, $join);
+$users = $dao->getDataJoin($fields, 'epunish as p', 'p.status = 2 and o.owno = '.$a, $join);
 
 
 

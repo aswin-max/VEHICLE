@@ -6,7 +6,7 @@ $a=$_SESSION["id"];
 $dao=new DataAccess();
 $join=array(
     'owner as o'=>array('o.vid=p.vid','join'),
-    'payment as pay'=>array('pay.pid=p.pid','join'),
+    'epayment as pay'=>array('pay.pid=p.pid','join'),
     'fine as f'=>array('f.fine_id=p.fine_id','join'),
 );  $fields=array('o.owname as owname','f.amount','pay.payid as payid','p.pid','sum(f.amount)');
 
