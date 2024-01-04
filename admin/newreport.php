@@ -13,16 +13,16 @@ $dao=new DataAccess();
     	<div class="row">
             <div class="col-md-12">
             
-            <H1><center> PUNISHMENT DETAILS </center> </H1>
+            <H1><center> MISSING DETAILS </center> </H1>
                 <table  border="1" class="table" style="margin-top:100px;">
                     <tr>
                         
                        
-                        <th>Punishment Name</th>
-                        <th>Punishment date</th>
+                
                         <th>Vehicle NO</th>
                          <th>Owner name</th>
-                         <th>Payment date</th>
+                         <th>location</th>
+                         <th>Missing date</th>
                      
                       
                       
@@ -35,20 +35,19 @@ $dao=new DataAccess();
 
  
 
-   $condition="p.status=2";
+   $condition="m.status=2";
    
    $join = array(
-    'payment as pay' => array('pay.pid=p.pid', 'join'),
-    'vehicle as v' => array('v.vid=p.vid', 'join'),
-    'owner as o' => array('o.vid=p.vid', 'join'),
-       'fine as f' => array('f.fine_id=p.fine_id', 'join'),
+    'vehicle as v' => array('v.vid=m.vid', 'join'),
+    'owner as o' => array('o.vid=m.vid', 'join'),
+     
 
     
     
 ); 
-	$fields=array('f.offence as a','p.date as b','v.vrno as c','o.owname as d','pay.pdate as e');
+	$fields=array('v.vrno as c','o.owname as d','m.loc','m.date as e');
 
-    $users=$dao->selectAsTable($fields,' punish as p ',$condition,$join);
+    $users=$dao->selectAsTable($fields,' missing as m ',$condition,$join);
     
     echo $users;
                                      

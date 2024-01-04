@@ -96,7 +96,7 @@ $dao = new DataAccess();
               <th scope="col">LOCATION</th>
               <th scope="col">OWNER</th>
               <th scope="col">IMAGE</th>
-              <th scope="col">VERIFY/DELETE</th> 
+              <th scope="col">ACTION</th> 
             </tr>
           </thead>
           <tbody>

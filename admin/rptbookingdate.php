@@ -3,7 +3,7 @@
 
 
  require('../config/autoload.php'); 
-include("header.php");
+ include("header.php");
 
 //session_start();
 $elements=array(
@@ -36,9 +36,10 @@ if($validator->validate($_POST))
 {
  $_SESSION['fdate']=$_POST['fdate'];
 
+ echo"<script >location.href = 'rptbookingdateview.php'</script>";
 
- echo"<script> location.replace(rptbookingdateview.php'); </script>";
-// header('location.replace:rptbookingdateview.php');
+
+
        
 }
 
@@ -69,7 +70,7 @@ From Date:
 
 
 
-<button type="submit" name="btn_insert">Submit</button>
+<button type="submit" name="btn_insert"  >Submit</button>
 </form>
 
 

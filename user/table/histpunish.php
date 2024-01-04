@@ -20,7 +20,7 @@ $dao = new DataAccess();
                     );
                     $fields = array('p.vid', 'o.owno', 'o.vid as vd', 'sum(f.amount) as sum');
 
-                    $users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 1 and o.owno = ' . $a, $join);
+                    $users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 2 and o.owno = ' . $a, $join);
 
                     
                     ?>
@@ -72,66 +72,56 @@ $dao = new DataAccess();
           <thead>
             <tr>  
 
-              <th scope="col">
-                <label class="control control--checkbox">
-                  <input type="checkbox"  class="js-check-all"/>
-                  <div class="control__indicator"></div>
-                </label>
-              </th>
-              <th scope="col">INVOICE ID</th>
+              
               <th scope="col">DATE</th>
+              <th scope="col">INVOICE ID</th>
+              
               <th scope="col">RC NUMBER</th>
-             
+              <th scope="col">OFFENCE</th>
+              <th scope="col">AMOUNT</th>
+              <th scope="col">ACTION</th>
             </tr>
           </thead>
           <tbody>
-            
+            <form method="POST">
                   
                   
            <?php 
-          
+
+          $history = array();
                $msg1 = "";
                $join = array(
                    'vehicle as v' => array('v.vid=p.vid', 'join'),
-                   'payment as pay' => array('pay.pid=pay.pid', 'join'),
+                   'payment as pay' => array('pay.pid=p.pid', 'join'),
+                   'fine as f' => array('f.fine_id=p.fine_id', 'join'),
                    
                );
-               $fields = array('p.pid as pid', 'v.vrno as vrno', 'f.offence as offence', 'p.offname as offname', 'p.loc as loc', 'p.date as date', 'f.amount as amo');
-               $users12 = $dao->getDataJoin($fields, 'punish as p', 'p.status=1 and p.vid=' .$users[0]['vd'], $join);  
+               $fields = array('p.pid as pid', 'v.vrno as vrno', 'GROUP_CONCAT(DISTINCT f.offence) as offence', 'pay.pdate as pdate','pay.invid as invid', 'SUM(f.amount) as amo','f.amount as amount','p.date as date');
+               $users12 = $dao->getDataJoin($fields, 'punish as p', 'p.status=2 and p.vid=' .$users[0]['vd'].' group by pay.invid', $join);  
                if (!empty($users12)) {
                             foreach ($users12 as $row) { 
 
 
-                echo'<tr scope="row">';
-                echo '<th scope="row">';
-                echo '<label class="control control--checkbox">';
-                echo '<input type="checkbox" class="js-check-row" data-amount="' . $row['amo'] . '" data-pid="' . $row['pid'] . '"/>';
-
-                echo '<div class="control__indicator"></div>';
-                echo '</label>';
-                echo '</th>';
-                echo '</td>';
-                echo '<td>' . $row['date'] . '</td>';
+              
+                echo '<td>' . $row['pdate'] . '</td>';
+                echo '<td>' . $row['invid'] . '</td>';
                 echo '<td>' . $row['vrno'] . '</td>';
-                echo '<td>' . $row['offence'] . '</td>';
-                echo '<td>' . $row['loc'] . '</td>';
-                echo '<td>' . $row['offname'] . '</td>';
-                echo '<td>' . $row['amo'] . '</td>';
+               
+                 echo '<td>' . $row['offence'] . '</td>';
                 
+                
+                echo '<td>' . $row['amo'] . '</td>';
+                echo '<td><button class="btn btn-success" name="invoice" id="myButton" onclick="gatherData(this)" data-amount="' . $row['amount'] . '" data-pid="' . $row['pid'] . '">INVOICE</a></td>';
                 echo '</tr>';
                 echo '<tr class="spacer"><td colspan="100"></td></tr>';
               }
             } else {
                 echo '<tr><td colspan="8">No records found</td></tr>';
-            }
-        
-
-                                   
-                                    
+            }  
                 
             
-      ?>
-      
+      ?><input type="hidden" name="arrayData" id="arrayData"> 
+      </form>
           </tbody>
         </table>
       </div>
@@ -146,87 +136,70 @@ $dao = new DataAccess();
 
 
 
-  <form method="POST">
-    <button name="pay" class="clicky-button" id="myButton" <?=$msg1?>>PAY 0</button>
-    <input type="hidden" id="totalAmountInput" name="totalAmount" value="0">
-    <input type="hidden" name="arrayData" id="arrayData">
-</form>
+ 
 
 <script>
-    var mainCheckbox = document.querySelector('.js-check-all');
-    var checkboxes = document.querySelectorAll('.js-check-row');
+    var myButton = document.getElementById('myButton');
 
-    mainCheckbox.addEventListener('change', function () {
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = mainCheckbox.checked;
-        });
-        calculateTotal();
+    myButton.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        // gatherData();
     });
 
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            mainCheckbox.checked = [...checkboxes].every(function (checkbox) {
-                return checkbox.checked;
-            });
-            calculateTotal();
-        });
-    });
+    function gatherData(daa) {
+        var data = [];
 
-    function calculateTotal() {
-        var totalAmount = 0;
-        var data=[];
         
+        var element = daa; //document.querySelectorAll('#myButton');
         
-        checkboxes.forEach(function (checkbox) {
-            if (checkbox.checked) {
-                var amount = parseFloat(checkbox.getAttribute('data-amount'));
-                totalAmount += amount;
-                var pid = parseFloat(checkbox.getAttribute('data-pid'));
-                var set1 = [pid,amount];
-                data.push(set1);
-                console.log(data);
-                var arrayJSON = JSON.stringify(data);
+            var amount = parseFloat(element.getAttribute('data-amount'));
+            var pid = parseFloat(element.getAttribute('data-pid'));
+            console.log(amount + pid);
+            var set1 = { pid: pid, amount: amount };
+            data.push(set1);
+            var arrayJSON = JSON.stringify(data);
                 document.getElementById('arrayData').value =arrayJSON;
+        
 
-
-
+       
+        console.log(data);
+        $.ajax({
+            type: 'POST',
+            url: 'histpunish.php', // Replace with the actual path to your server-side script
+            data: { arrayData: arrayJSON },
+            success: function () {
+                // Redirect to the next page after successfully storing data
+                window.location.href = '../histinvoice.php';
+            },
+            error: function () {
+                // Handle errors if needed
+                console.log('Error storing array data.');
             }
         });
-
-        // Update the Total Amount on the button
-        updateButton(totalAmount);
-
-        // Update the hidden input field with the total amount
-        document.getElementById('totalAmountInput').value = totalAmount;
     }
-
-    function updateButton(totalAmount) {
-        var displayTotalButton = document.getElementById('myButton');
-        if (totalAmount > 0) {
-            displayTotalButton.textContent = 'PAY ₹' + totalAmount;
-            displayTotalButton.removeAttribute('disabled');
-        } else {
-            displayTotalButton.textContent = 'PAY ₹0';
-            displayTotalButton.setAttribute('disabled', 'disabled');
-        }
-    }
-
-    // Calculate the initial total when the page loads
-    calculateTotal();
 </script>
 
 <?php
-if (isset($_POST['pay'])) {
+// if (isset($_POST['invoice'])) {
     
     
-    $arrayJSON =$_POST['arrayData'];
-    $arrayToStore = json_decode($arrayJSON, true);
-    $_SESSION['myArray'] = serialize($arrayToStore);
+//     $arrayJSON =$_POST['arrayData'];
+//     $arrayToStore = json_decode($arrayJSON, true);
+//     $_SESSION['myArray'] = serialize($arrayToStore);
    
-    // $retrievedArray = unserialize($_SESSION['myArray']);
-    //  print_r($retrievedArray);
-    //  echo $retrievedArray[0][0];
-   echo "<script> location.replace('../pay/pay1.php'); </script>";
+   
+//  echo "<script> location.replace('../invoice.php'); </script>";
+// }
+
+if (isset($_POST['arrayData'])) {
+  $arrayJSON = $_POST['arrayData'];
+  $arrayToStore = json_decode($arrayJSON, true);
+  $_SESSION['inv'] = serialize($arrayToStore);
+  // You can add additional logic here if needed
+  echo 'Array data stored successfully.';
+  echo "<script> location.replace('../invoice.php'); </script>";
+} else {
+  echo 'Error: No array data received.';
 }
 ?>
    

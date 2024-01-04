@@ -235,7 +235,7 @@ if (isset($_POST['pay'])) {
     // $retrievedArray = unserialize($_SESSION['myArray']);
     //  print_r($retrievedArray);
     //  echo $retrievedArray[0][0];
-   echo "<script> location.replace('../pay/pay1.php'); </script>";
+   echo "<script> location.replace('../pay/pay.php'); </script>";
 }
 ?>
    
