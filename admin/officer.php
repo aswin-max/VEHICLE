@@ -1,6 +1,6 @@
 <?php 
 
- require('../config/autoload.php'); 
+
  include("sidebar.php");
 $file=new FileUpload();
 $elements=array(
@@ -119,3 +119,4 @@ echo $file->errors();
 </body>
 
 </html>
+<?php include("footer.php"); ?>

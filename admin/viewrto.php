@@ -1,11 +1,11 @@
 
-<?php require('../config/autoload.php'); ?>
+
 
 <?php
-$dao=new DataAccess();
+
 include("sidebar.php");
 
-
+$dao=new DataAccess();
 
 
 ?>
@@ -72,6 +72,7 @@ include("sidebar.php");
         </div><!-- End row -->
     </div><!-- End container -->
     </div><!-- End container_gray_bg -->
+    <?php include("footer.php"); ?>
     
     
     

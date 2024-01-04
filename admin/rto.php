@@ -1,6 +1,6 @@
 <?php 
 
- require('../config/autoload.php'); 
+
  include("sidebar.php");
 $file=new FileUpload();
 $elements=array(
@@ -98,3 +98,4 @@ regid:
 </body>
 
 </html>
+<?php include("footer.php"); ?>

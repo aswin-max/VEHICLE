@@ -1,6 +1,6 @@
 <?php 
 
- require('../config/autoload.php'); 
+
  include("sidebar.php");
 $dao=new DataAccess();
 $info=$dao->getData('*','fine','fine_id='.$_GET['id']);

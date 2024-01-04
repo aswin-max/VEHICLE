@@ -1,4 +1,4 @@
-<?php require('../config/autoload.php')?>
+
 <?php include("sidebar.php");
 include("dbconn.php");
 
@@ -83,4 +83,5 @@ $dao=new DataAccess();
     </div><!-- End container -->
     
     </div><!-- End container_gray_bg -->
+    <?php include("footer.php"); ?>
     
