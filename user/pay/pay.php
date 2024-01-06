@@ -4,7 +4,7 @@ require('../../config/autoload.php');
 include("../dbcon.php");
 $a=$_SESSION["id"];
  $retrievedArray = unserialize($_SESSION['myArray']);
-//      print_r($retrievedArray);
+print_r($retrievedArray);
 //   echo $retrievedArray[0][0];
 $b=0;
 foreach($retrievedArray as $row)
