@@ -96,9 +96,17 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                 <div class="form-group row">
                     <label for="date" class="col-sm-3 col-form-label">DATE</label>
                     <div class="col-sm-9">
-                        <input type="date" name="date">
-                    </div>
-                </div>
+    <input type="date" name="date" id="datePicker">
+</div>
+<script>
+    // Get the current date
+    var today = new Date();
+    // Calculate tomorrow's date
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    // Set the max attribute to tomorrow's date
+    document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
+</script>
                 <div class="form-group row">
                     <label for="loc" class="col-sm-3 col-form-label">LOCATION</label>
                     <div class="col-sm-9">

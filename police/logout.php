@@ -4,7 +4,7 @@
 
 if(session_destroy()){
 
-    header('Location:/vehicle/user/login/ownerlog.php');
+    header('Location:/vehicle/police/login/offlog.php');
 }
  
 

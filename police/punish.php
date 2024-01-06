@@ -3,15 +3,15 @@
 include("sidebar.php");
 $dao = new DataAccess();
 $file = new FileUpload();
-$elements = array("vid" => "", "fine_id" => "", "offid" => "", "loc" => "", "date" => "");
+$elements = array("vid" => "", "fine_id" => "", "offname" => "", "loc" => "", "date" => "");
 $form = new FormAssist($elements, $_POST);
-$labels = array('vid' => "vid", 'fine_id' => "fine_id", 'offid' => "officer", 'loc' => "location", "date" => "date");
-$offid=$_SESSION['id'];
+$labels = array('vid' => "vid", 'fine_id' => "fine_id", 'offname' => "officer", 'loc' => "location", "date" => "date");
+$offname=$_SESSION['id'];
 
 $rules = array(
     "vid" => array("required" => true),
     "fine_id" => array("required" => true),
-    "offid" => array("required" => true, "alphaspaceonly" => true),
+    "offname" => array("required" => true, "alphaspaceonly" => true),
     "loc" => array("required" => true, "alphaspaceonly" => true),
     "date" => array("required" => true),
    
@@ -28,14 +28,14 @@ if (isset($_POST["reset"])) {
                     $data = array(
                         'vid' => $parts[0],
                         'fine_id' => $_POST['fine_id'],
-                        'offid' =>$_POST['offid'],
+                        'offname' =>$_POST['offname'],
                         'loc' => $_POST['loc'],
                         'date' => $_POST['date'],
                         'status' => 1
                     );
 
                     $dao = new DataAccess();
-                    if ($dao->insert($data, "punish")) {
+                    if ($dao->insert($data,"punish")) {
                         echo "<script> alert('New record created successfully');</script>";
                     } else {
                         $msg = "Registration failed";
@@ -94,10 +94,20 @@ $optionsArrayJson3 = json_encode($optionsArray3);
             <p class="card-description"></p>
             <form class="forms-sample" method="POST" enctype="multipart/form-data" action="punish.php">
                 <div class="form-group row">
-                    <label for="date" class="col-sm-3 col-form-label">DATE</label>
-                    <div class="col-sm-9">
-                        <input type="date" name="date">
-                    </div>
+                <label for="date" class="col-sm-3 col-form-label">DATE</label>
+<div class="col-sm-9">
+    <input type="date" name="date" id="datePicker">
+</div>
+<script>
+    // Get the current date
+    var today = new Date();
+    // Calculate tomorrow's date
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    // Set the max attribute to tomorrow's date
+    document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
+</script>
+
                 </div>
                 <div class="form-group row">
                     <label for="loc" class="col-sm-3 col-form-label">LOCATION</label>
@@ -107,10 +117,10 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="offid" class="col-sm-3 col-form-label">OFFICER NAME</label>
+                    <label for="offname" class="col-sm-3 col-form-label">OFFICER NAME</label>
                     <div class="col-sm-9">
-                        <?= $form->textBox('offid', array('class' => 'form-control')); ?>
-                        <?= $validator->error('offid'); ?>
+                        <?= $form->textBox('offname', array('class' => 'form-control')); ?>
+                        <?= $validator->error('offname'); ?>
                     </div>
                 </div>
                 <div class="form-group row">

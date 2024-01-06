@@ -90,8 +90,17 @@ if (isset($_POST["reset"])) {
                 <div class="form-group row">
                     <label for="vid" class="col-sm-3 col-form-label">date</label>
                     <div class="col-sm-9">
-                        <input type="date" name="date">
-                    </div>
+    <input type="date" name="date" id="datePicker">
+</div>
+<script>
+    // Get the current date
+    var today = new Date();
+    // Calculate tomorrow's date
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    // Set the max attribute to tomorrow's date
+    document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
+</script>
                 </div>
                 <div class="form-group row">
                     <label for="pic" class="col-sm-3 col-form-label">PHOTO</label>

@@ -2,7 +2,7 @@
 include("sidebar.php");
 
 $dao = new DataAccess();
-$abc = $_SESSION['todate'];
+
 ?>
 
 <div class="container_gray_bg" id="home_feat_1">

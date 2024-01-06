@@ -1,8 +1,7 @@
+<?php include("sidebar.php");?>
+
 <?php
-require('../config/autoload.php');
-include("sidebar.php");
-
-
+$dao = new DataAccess();
 $file = new FileUpload();
 $elements = array(
     "vrno" => "", "tid" => "", "rid" => "", "vehiclename" => "", "fid" => "", "color" => "", "dor" => "", "rc" => ""
@@ -10,7 +9,7 @@ $elements = array(
 
 $form = new FormAssist($elements, $_POST);
 
-$dao = new DataAccess();
+
 
 $labels = array('vrno' => "vrno", 'tid' => "tname", 'rid' => "rname", 'vehiclename' => "vehiclename", 'fid' => "fname", 'color' => "color", 'dor' => "dor", 'rc' => "rc book");
 
@@ -164,10 +163,19 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
 
                     <div class="form-group row">
                         <label for="dor" class="col-sm-3 col-form-label">Date</label>
-                        <div class="col-sm-9">
-                            <input type="date" name="dor">
-                        </div>
-                    </div>
+                        
+                    <div class="col-sm-9">
+    <input type="date" name="date" id="datePicker">
+</div>
+<script>
+    // Get the current date
+    var today = new Date();
+    // Calculate tomorrow's date
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    // Set the max attribute to tomorrow's date
+    document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
+</script>
 
                     <div class="form-group row">
                         <label for="rc" class="col-sm-3 col-form-label">RC Book</label>

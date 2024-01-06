@@ -65,12 +65,18 @@ else
 </head>
 <body>
     <form method="POST" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-6">
-                DATE:
-                <input type="date" name="date">
-            </div>
-        </div>
+    <div class="col-sm-9">
+    <input type="date" name="date" id="datePicker">
+</div>
+<script>
+    // Get the current date
+    var today = new Date();
+    // Calculate tomorrow's date
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    // Set the max attribute to tomorrow's date
+    document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
+</script>
         <div class="row">
             <div class="col-md-6">
                 LOCATION:
