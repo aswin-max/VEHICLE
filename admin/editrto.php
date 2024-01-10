@@ -18,8 +18,8 @@ $dao=new DataAccess();
 $labels=array('regid'=>"regid",'rname'=>"rname");
 
 $rules=array(
-    "regid"=>array("required"=>true,"alphaspaceonly"=>true),
-    "rname"=>array("required"=>true,"integeronly"=>true)
+    "regid"=>array("required"=>true),
+    "rname"=>array("required"=>true,"alphaspaceonly"=>true)
 
 
      
@@ -48,7 +48,7 @@ $data=array(
     if($dao->update($data,'rto',$condition))
     {
         $msg="Successfullly Updated";
-
+        echo"<script> location.replace('/vehicle/admin/viewrto.php'); </script>";
     }
     else
         {$msg="Failed";} ?>

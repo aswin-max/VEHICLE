@@ -1,6 +1,7 @@
 
-<?php include("sidebar.php");
-include("dbconn.php");
+<?php 
+include("sidebar.php");
+
 
 $dao=new DataAccess();
 
@@ -51,7 +52,7 @@ $dao=new DataAccess();
        
         'rto as r'=>array('r.rid=p.rid','join'),
         
-    );  $fields=array('offid','r.rname','p.offuser as offname','p.offimg');
+    );  $fields=array('p.offid','r.rname','p.offuser as offname','p.offimg');
 
     $users=$dao->selectAsTable($fields,'officer as p','p.status=1',$join,$actions,$config);
     
@@ -83,5 +84,4 @@ $dao=new DataAccess();
     </div><!-- End container -->
     
     </div><!-- End container_gray_bg -->
-    <?php include("footer.php"); ?>
     

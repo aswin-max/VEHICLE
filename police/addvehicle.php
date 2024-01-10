@@ -4,14 +4,14 @@
 $dao = new DataAccess();
 $file = new FileUpload();
 $elements = array(
-    "vrno" => "", "tid" => "", "rid" => "", "vehiclename" => "", "fid" => "", "color" => "", "dor" => "", "rc" => ""
+    "vrno" => "", "tid" => "", "rid" => "", "vehiclename" => "", "fid" => "", "color" => "", "date" => "", "rc" => ""
 );
 
 $form = new FormAssist($elements, $_POST);
 
 
 
-$labels = array('vrno' => "vrno", 'tid' => "tname", 'rid' => "rname", 'vehiclename' => "vehiclename", 'fid' => "fname", 'color' => "color", 'dor' => "dor", 'rc' => "rc book");
+$labels = array('vrno' => "vrno", 'tid' => "tname", 'rid' => "rname", 'vehiclename' => "vehiclename", 'fid' => "fname", 'color' => "color", 'date' => "date", 'rc' => "rc book");
 
 $rules = array(
     "tid" => array("required" => true),
@@ -20,8 +20,9 @@ $rules = array(
     "fid" => array("required" => true),
     "vehiclename" => array("required" => true),
     "color" => array("required" => true, "alphaonly" => true),
-    "dor" => array("required" => true),
-    "rc" => array("filerequired" => true)
+    "date" => array("required" => true),
+    "rc" => array("filerequired" => true),
+    
 );
 
 $validator = new FormValidator($rules, $labels);
@@ -39,7 +40,7 @@ if (isset($_POST["reset"])) {
                 'fid' => $_POST['fid'],
                 'vehiclename' => $_POST['vehiclename'],
                 'color' => $_POST['color'],
-                'dor' => $_POST['dor'],
+                'date' => $_POST['date'],
                 'rc' => $fileName
             );
 
@@ -106,8 +107,9 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                             <?php
                             $options = $dao->createOptions('tname', 'tid', "type");
                             echo $form->dropDownList('tid', array('class' => 'form-control'), $options);
-                            echo $validator->error('tid');
+                            
                             ?>
+                            <span style="color:red;"><?= $validator->error('tid'); ?></span>
                         </div>
                     </div>
 
@@ -115,7 +117,7 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                         <label for="vrno" class="col-sm-3 col-form-label">Vehicle RC Number</label>
                         <div class="col-sm-9">
                             <?= $form->textBox('vrno', array('class' => 'form-control')); ?>
-                            <?= $validator->error('vrno'); ?>
+                            <span style="color:red;"><?= $validator->error('vrno'); ?></span>
                         </div>
                     </div>
 
@@ -123,7 +125,7 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                         <label for="rid" class="col-sm-3 col-form-label">RTO</label>
                         <div class="col-sm-9">
                         <div class="custom-dropdown">
-                               <label class="col-form-label"></label><br>
+                               <!-- <label class="col-form-label"></label><br> -->
                               <div class="input-container">
                                 <input type="text" name="rid" id="customInput" placeholder="RTO" class="form-control d-inline">
                                  <span class="clear-button d-inline mdi mdi-close"></span>
@@ -131,14 +133,14 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                                          <ul id="customDropdown"></ul>
                                 </div>
 
-                        </div>
+                        </div>  
                     </div>
 
                     <div class="form-group row">
                         <label for="vehiclename" class="col-sm-3 col-form-label">Vehicle Name</label>
                         <div class="col-sm-9">
                             <?= $form->textBox('vehiclename', array('class' => 'form-control')); ?>
-                            <?= $validator->error('vehiclename'); ?>
+                            <span style="color:red;"><?= $validator->error('vehiclename'); ?></span>
                         </div>
                     </div>
 
@@ -148,8 +150,9 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                             <?php
                             $options = $dao->createOptions('fname', 'fid', "fuel");
                             echo $form->dropDownList('fid', array('class' => 'form-control'), $options);
-                            echo $validator->error('fid');
+                            
                             ?>
+                            <span style="color:red;"><?= $validator->error('fid'); ?></span>
                         </div>
                     </div>
 
@@ -157,17 +160,19 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                         <label for="color" class="col-sm-3 col-form-label">Color</label>
                         <div class="col-sm-9">
                             <?= $form->textBox('color', array('class' => 'form-control')); ?>
-                            <?= $validator->error('color'); ?>
+                            <span style="color:red;"><?= $validator->error('color'); ?></span>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="dor" class="col-sm-3 col-form-label">Date</label>
                         
+                        <label for="date" class="col-sm-3 col-form-label">Date</label>
                     <div class="col-sm-9">
     <input type="date" name="date" id="datePicker">
-</div>
-<script>
+    <span style="color:red;"><?= $validator->error('date'); ?></span>
+   
+</div></div>
+ <script>
     // Get the current date
     var today = new Date();
     // Calculate tomorrow's date
@@ -184,7 +189,6 @@ $drop= $dao->getDataJoin(array('rid','regid','rname'),'rto');
                             <span style="color:red;"><?= $validator->error('rc'); ?></span>
                         </div>
                     </div>
-
                     <button type="submit" class="btn btn-primary mr-2" name="reset">Submit</button>
                     <button class="btn btn-light">Cancel</button>
                 </form>

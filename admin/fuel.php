@@ -4,7 +4,7 @@ $file = new FileUpload();
 $dao = new DataAccess();
 
 $rules = array(
-    "tname" => array("required" => true, "alphaonly" => true)
+    "fname" => array("required" => true, "alphaonly" => true)
 );
 
 $validator = new FormValidator($rules);
@@ -15,12 +15,12 @@ if (isset($_POST["insert"])) {
     if ($validator->validate($_POST)) {
 
         $data = array(
-            'tname' => $_POST['tname'],
+            'fname' => $_POST['fname'],
         );
 
-        if ($dao->insert($data, "type")) {
+        if ($dao->insert($data, "fuel")) {
             $successMessage = 'New record created successfully';
-            $_POST['tname'] = ''; // Clear the text box value in $_POST
+            $_POST['fname'] = ''; // Clear the text box value in $_POST
         } else {
             $msg = "Registration failed";
         }
@@ -48,16 +48,16 @@ if (!empty($successMessage)) {
 }
 ?>
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="" method="POST" encfuel="multipart/form-data">
     <div class="row">
         <div class="col-md-6">
-            VEHICLE TYPE:
-            <input type="text" name="tname" class="form-control" value="<?= isset($_POST['tname']) ? htmlspecialchars($_POST['tname']) : ''; ?>" oninput="clearSuccessMessage()">
-            <?= $validator->error('tname'); ?>
+            fname:
+            <input fuel="text" name="fname" class="form-control" value="<?= isset($_POST['fname']) ? htmlspecialchars($_POST['fname']) : ''; ?>" oninput="clearSuccessMessage()">
+            <?= $validator->error('fname'); ?>
         </div>
     </div>
 
-    <button type="submit" name="insert">Submit</button>
+    <button fuel="submit" name="insert">Submit</button>
 </form>
 
 </body>

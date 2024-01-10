@@ -48,7 +48,7 @@ $data=array(
     if($dao->update($data,'fine',$condition))
     {
         $msg="Successfullly Updated";
-
+        echo"<script> location.replace('/vehicle/admin/viewoffence.php'); </script>";
     }
     else
         {$msg="Failed";} ?>
