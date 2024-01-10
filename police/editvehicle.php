@@ -1,12 +1,10 @@
 <?php 
-
- require('../config/autoload.php'); 
- include("sidebar.html");
+ include("sidebar.php");
  $dao=new DataAccess();
 $info=$dao->getData('*','vehicle','vid='.$_GET['id']);
 $file=new FileUpload();
 $elements=array(
-        "vrno"=>$info[0]['vrno'],"tid"=>$info[0]['tid'],"rid"=>$info[0]['rid'],"vehiclename"=>$info[0]['vehiclename'],"fid"=>$info[0]['fid'],"color"=>$info[0]['color'],"dor"=>$info[0]['dor'],"rc"=>"");
+        "vrno"=>$info[0]['vrno'],"tid"=>$info[0]['tid'],"rid"=>$info[0]['rid'],"vehiclename"=>$info[0]['vehiclename'],"fid"=>$info[0]['fid'],"color"=>$info[0]['color'],"date"=>$info[0]['date'],"rc"=>"");
 
 $form=new FormAssist($elements,$_POST);
 
@@ -14,7 +12,7 @@ $form=new FormAssist($elements,$_POST);
 
 
 
-$labels=array('vrno'=>"vrno",'tid'=>"tname",'rid'=>"rname",'vehiclename'=>"vehiclename",'fid'=>"fname",'color'=>"color",'dor'=>"dor",'rc'=>"rc book");
+$labels=array('vrno'=>"vrno",'tid'=>"tname",'rid'=>"rname",'vehiclename'=>"vehiclename",'fid'=>"fname",'color'=>"color",'date'=>"date",'rc'=>"rc book");
 
 $rules=array(
     "tid"=>array("required"=>true),
@@ -24,7 +22,7 @@ $rules=array(
     "fid"=>array("required"=>true),
     "vehiclename"=>array("required"=>true),
     "color"=>array("required"=>true,"alphaonly"=>true),
-    "dor"=>array("required"=>true),
+    "date"=>array("required"=>true),
     "rc"=>array("filerequired"=>true)
 
      
@@ -58,7 +56,7 @@ $data=array(
         'fid'=>$_POST['fid'],
         'vehiclename'=>$_POST['vehiclename'],
         'color'=>$_POST['color'],
-        'dor'=>$_POST['dor'],
+        'date'=>$_POST['date'],
         //'rc'=>$fileName
     );
     $condition='sid='.$_GET['id'];

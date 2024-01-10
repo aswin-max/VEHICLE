@@ -60,11 +60,11 @@
                             <div class="type-lb">
                                 <!-- <p class="new">New</p> -->
                             </div>
-                            <img src="images/antony.jpeg" style="width: 450px" height="200px" >
+                            <img src="images/kbg.png" style="width: 450px" height="200px" >
                             
                         </div>
                         <div class="why-text">
-                            <h4>Shri Antony Raju</h4>
+                            <h4>Shri K.B.Ganesh Kumar</h4>
                             <p style="color: black">Hon'ble Minister For Transport,Kerela</p>
                             
                         </div>
@@ -77,11 +77,11 @@
                             <div class="type-lb">
                                 
                             </div>
-                            <img src="images/ips.jpeg" style="width: 450px" height="200px">
+                            <img src="images/sree.png" style="width: 450px" height="200px">
                             
                         </div>
                         <div class="why-text">
-                             <h4>Shri M R Ajith Kumar,IPS</h4>
+                             <h4>Shri Sreejith,IPS</h4>
                             <p style="color: black">Transport Commissioner,Kerela</p>
                            
                         </div>
@@ -95,7 +95,7 @@
                                 
                             </div>
                             <img src="images/biju.jpeg" style="width: 450px" height="200px">
-                           
+                <section id="cat">           
                             
                         </div>
                         <div class="why-text">
@@ -110,7 +110,7 @@
     <div>
         <br>
         
-        
+            
         <marquee style="font-family: Book Antiqua; color: #FFFFFF; background-color: #000080" scrollamount="10" loop="infinite">
     <span class="marquee-text">Decision of the Meeting of the Regional Transport Authority, Kasaragod held on 18-09-2023</span>
     <span class="marquee-text">Decision of the Meeting of the Regional Transport Authority, Kasaragod held on 18-09-2023</span>
@@ -123,6 +123,7 @@
 
     </div>
     <!-- Start Categories  -->
+
     <div class="my-account-box-main">
         <div class="container">
         
@@ -214,7 +215,8 @@
             </div>
         </div>
     </div>
-</div>
+
+</div></section>
     <!-- End Categories -->
 
     <script>
@@ -241,6 +243,7 @@
 
     </style>
 
-    
+    <section id="contact">
        <!-- Start Footer  -->
        <?php include('footer.php')?>
+</section>

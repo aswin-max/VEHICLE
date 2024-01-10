@@ -43,7 +43,7 @@ $data=array(
     {
          
 
-        echo "<script> alert('New record created successfully');</script> ";
+        // echo "<script> alert('New record created successfully');</script> ";
         echo"<script> location.replace('home.php'); </script>";
     }
     else

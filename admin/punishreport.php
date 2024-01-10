@@ -62,9 +62,9 @@ $dao=new DataAccess();
             // Display status based on the value in the 'status' column
             echo "<td>";
             if ($user['status'] == 1) {
-                echo "UNPAID";
+                echo "<span class=\"badge bg-danger\">UNPAID</span>";
             } elseif ($user['status'] == 2) {
-                echo "PAID";
+                echo "<span class=\"badge bg-success\">PAID</span>";
             }  else {
                 echo "Unknown";
             }

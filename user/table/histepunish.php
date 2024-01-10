@@ -107,7 +107,7 @@ $dao = new DataAccess();
                 echo '<td>' . $row['invid'] . '</td>';
                 echo '<td>' . $row['vrno'] . '</td>';
                
-               echo'<td> <button name="add" class="btn btn-success"><a href="../einvoice.php">ADD</button></td>';
+               echo'<td> <button name="add" class="btn btn-success"><a href="../einvoice.php">VIEW</button></td>';
                
                 echo '<tr class="spacer"><td colspan="100"></td></tr>';
 

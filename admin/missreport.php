@@ -52,11 +52,11 @@ $dao = new DataAccess();
                             // Display status based on the value in the 'status' column
                             echo "<td>";
                             if ($user['status'] == 1) {
-                                echo "Verifying";
+                                echo "<span class=\"badge bg-warning\">Verifying</span>";
                             } elseif ($user['status'] == 2) {
-                                echo "Missing";
+                                echo "<span class=\"badge bg-danger\">Missing</span>";
                             } elseif ($user['status'] == 3) {
-                                echo "Found";
+                                echo "<span class=\"badge bg-success\">Found</span>";
                             } else {
                                 echo "Unknown";
                             }

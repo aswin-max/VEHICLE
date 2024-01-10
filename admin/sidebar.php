@@ -1,10 +1,15 @@
 <?php 
 
- require('../config/autoload.php'); ?><?php  
+ require('../config/autoload.php'); ?>
 
-$username=$_SESSION['username'];
-?>
 
+
+
+<?php
+if(isset($_SESSION['username']))
+{ 
+   $username=$_SESSION['username'];
+ ?>
 <!doctype html>
 <html lang="en">
 
@@ -12,7 +17,7 @@ $username=$_SESSION['username'];
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+    <title>ADMIN</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <link href="vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -77,7 +82,7 @@ $username=$_SESSION['username'];
        <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                    <a class="d-xl-none d-lg-none" href="">Dashboard</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -87,11 +92,8 @@ $username=$_SESSION['username'];
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                            <a class="nav-link" href="index.php" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-rocket"></i>DASHBOARD</a>
                                 <div id="submenu-1" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        
-                                    </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -374,6 +376,11 @@ $username=$_SESSION['username'];
                 <script src="vendor/slimscroll/jquery.slimscroll.js"></script>
                 <script src="libs/js/main-js.js"></script>
     </body></html>            
+<?php
+}
+else {
 
+    echo"<script> location.replace('login/adlog.php'); </script>";
+    
 
-
+}?>

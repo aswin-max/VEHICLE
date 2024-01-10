@@ -1,5 +1,4 @@
 <?php
-
 include("sidebar.php");
 $dao = new DataAccess();
 $file = new FileUpload();
@@ -103,7 +102,7 @@ $optionsArrayJson3 = json_encode($optionsArray3);
     var today = new Date();
     // Calculate tomorrow's date
     var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    tomorrow.setDate(today.getDate());
     // Set the max attribute to tomorrow's date
     document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
 </script>

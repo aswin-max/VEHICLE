@@ -35,7 +35,7 @@ if(isset($_POST['signup']))
 			);
 			if($dao->insert($data,'owner'))
 			{
-				$msg="Inserted Successfully";
+				
 			}
 			else
 				$msg="insertion failed";
@@ -71,7 +71,7 @@ $validator=new FormValidator($rules);
 
 
 		
-   echo"<script> location.replace('/vehicle/user/home.php'); </script>";
+   echo"<script> location.replace('/vehicle/user/login/redirect.php'); </script>";
 			
            // header('location:student/index.html');
        

@@ -1,13 +1,18 @@
 <!doctype html>
 <html lang="en">
 <?php require('../config/autoload.php'); ?>
- <?php
-  $offname=$_SESSION['name']; ?>
+ 
+  <?php
+if(isset($_SESSION['name']))
+{ 
+  $offname=$_SESSION['name']; 
+   
+ ?>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+    <title>POLICE</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <link href="vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -323,3 +328,11 @@
                 <script src="vendor/slimscroll/jquery.slimscroll.js"></script>
                 <script src="libs/js/main-js.js"></script>
     </body></html>            
+    <?php
+}
+else {
+
+    echo"<script> location.replace('login/offlog.php'); </script>";
+    
+
+}?>

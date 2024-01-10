@@ -97,13 +97,13 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                     <label for="date" class="col-sm-3 col-form-label">DATE</label>
                     <div class="col-sm-9">
     <input type="date" name="date" id="datePicker">
-</div>
+</div></div>
 <script>
     // Get the current date
     var today = new Date();
     // Calculate tomorrow's date
     var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    tomorrow.setDate(today.getDate());
     // Set the max attribute to tomorrow's date
     document.getElementById('datePicker').max = tomorrow.toISOString().split('T')[0];
 </script>
@@ -118,7 +118,7 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                     <label for="vid" class="col-sm-3 col-form-label">RC NUMBER</label>
                     <div class="col-sm-9">
                         <div class="custom-dropdown">
-                            <label class="col-form-label"></label><br>
+                            <!-- <label class="col-form-label"></label><br> -->
                             <div class="input-container">
                                 <input type="text" name="vid" id="customInput1" placeholder="Type vid or Vehicle Number" class="form-control d-inline">
                                 <span class="clear-button d-inline mdi mdi-close"></span>
@@ -131,7 +131,7 @@ $optionsArrayJson3 = json_encode($optionsArray3);
                     <label for="fine_id" class="col-sm-3 col-form-label">OFFENCE</label>
                     <div class="col-sm-9">
                         <div class="custom-dropdown">
-                            <label class="col-form-label"></label><br>
+                            <!-- <label class="col-form-label"></label><br> -->
                             <div class="input-container">
                                 <input type="text" name="fine_id" id="customInput3" placeholder="Type fine_id or Offence" class="form-control d-inline">
                                 <span class="clear-button d-inline mdi mdi-close"></span>

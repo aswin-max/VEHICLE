@@ -10,17 +10,21 @@ $dao = new DataAccess();
                      $config=array(
         
 
+                        'images'=>array(
+                                       'field'=>'pic',
+                                       'path'=>'../uploads/',
+                                       'attributes'=>array('style'=>'width:100px;'))
+                       
                        
                        
                    );
                     $a = $_SESSION['id'];
                     $join = array(
                         'owner as o' => array('o.vid = p.vid', 'join'),
-                        'fine as f' => array('f.fine_id=p.fine_id', 'join'),
                     );
-                    $fields = array('p.vid', 'o.owno', 'o.vid as vd', 'sum(f.amount) as sum');
+                    $fields = array('p.vid', 'o.owno', 'o.vid as vd');
 
-                    $users = $dao->getDataJoin($fields, 'punish as p', 'p.status = 2 and o.owno = ' . $a, $join);
+                    $users = $dao->getDataJoin($fields, 'punish as p', 'o.owno = ' . $a, $join);
 
                     
                     ?>
@@ -70,58 +74,57 @@ $dao = new DataAccess();
 
         <table class="table custom-table">
           <thead>
-            <tr>  
-
-              
-              <th scope="col">DATE</th>
+            <th scope="col">DATE</th>
               <th scope="col">INVOICE ID</th>
               
               <th scope="col">RC NUMBER</th>
-              <th scope="col">OFFENCE</th>
-              <th scope="col">AMOUNT</th>
-              <th scope="col">ACTION</th>
-            </tr>
+              <th scope="col">INVOICE</th>
+           
           </thead>
           <tbody>
-            <form method="POST">
+            
                   
                   
            <?php 
+           if (!empty($users) && isset($users[0]['vd'])) 
+           {
 
-          $history = array();
-               $msg1 = "";
-               $join = array(
-                   'vehicle as v' => array('v.vid=p.vid', 'join'),
-                   'payment as pay' => array('pay.pid=p.pid', 'join'),
-                   'fine as f' => array('f.fine_id=p.fine_id', 'join'),
-                   
-               );
-               $fields = array('p.pid as pid', 'v.vrno as vrno', 'GROUP_CONCAT(DISTINCT f.offence) as offence', 'pay.pdate as pdate','pay.invid as invid', 'SUM(f.amount) as amo','f.amount as amount','p.date as date');
-               $users12 = $dao->getDataJoin($fields, 'punish as p', 'p.status=2 and p.vid=' .$users[0]['vd'].' group by pay.invid', $join);  
+
+            
+            $join = array(
+                'vehicle as v' => array('v.vid=p.vid', 'join'),
+                'payment as pay' => array('pay.pid=p.pid', 'join'),
+                
+            );
+            $fields = array('p.pid as pid','pay.invid as invid', 'v.vrno as vrno', 'pay.pdate as date',);
+            $users12 = $dao->getDataJoin($fields, 'punish as p', 'p.status=2 and p.vid=' .$users[0]['vd'], $join);  
                if (!empty($users12)) {
                             foreach ($users12 as $row) { 
 
 
-              
-                echo '<td>' . $row['pdate'] . '</td>';
+                
+                echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['invid'] . '</td>';
                 echo '<td>' . $row['vrno'] . '</td>';
                
-                 echo '<td>' . $row['offence'] . '</td>';
-                
-                
-                echo '<td>' . $row['amo'] . '</td>';
-                echo '<td><button class="btn btn-success" name="invoice" id="myButton" onclick="gatherData(this)" data-amount="' . $row['amount'] . '" data-pid="' . $row['pid'] . '">INVOICE</a></td>';
-                echo '</tr>';
+               echo'<td> <button name="add" class="btn btn-success"><a href="../einvoice.php">VIEW</button></td>';
+               
                 echo '<tr class="spacer"><td colspan="100"></td></tr>';
+
               }
             } else {
                 echo '<tr><td colspan="8">No records found</td></tr>';
-            }  
+            }
+        } else {
+          echo '<tr><td colspan="8">No records found</td></tr>';
+        } 
+
+                                   
+                                    
                 
             
-      ?><input type="hidden" name="arrayData" id="arrayData"> 
-      </form>
+      ?>
+      
           </tbody>
         </table>
       </div>
@@ -138,70 +141,8 @@ $dao = new DataAccess();
 
  
 
-<script>
-    var myButton = document.getElementById('myButton');
 
-    myButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent the default form submission behavior
-        // gatherData();
-    });
 
-    function gatherData(daa) {
-        var data = [];
-
-        
-        var element = daa; //document.querySelectorAll('#myButton');
-        
-            var amount = parseFloat(element.getAttribute('data-amount'));
-            var pid = parseFloat(element.getAttribute('data-pid'));
-            console.log(amount + pid);
-            var set1 = { pid: pid, amount: amount };
-            data.push(set1);
-            var arrayJSON = JSON.stringify(data);
-                document.getElementById('arrayData').value =arrayJSON;
-        
-
-       
-        console.log(data);
-        $.ajax({
-            type: 'POST',
-            url: 'histpunish.php', // Replace with the actual path to your server-side script
-            data: { arrayData: arrayJSON },
-            success: function () {
-                // Redirect to the next page after successfully storing data
-                window.location.href = '../histinvoice.php';
-            },
-            error: function () {
-                // Handle errors if needed
-                console.log('Error storing array data.');
-            }
-        });
-    }
-</script>
-
-<?php
-// if (isset($_POST['invoice'])) {
-    
-    
-//     $arrayJSON =$_POST['arrayData'];
-//     $arrayToStore = json_decode($arrayJSON, true);
-//     $_SESSION['myArray'] = serialize($arrayToStore);
-   
-   
-//  echo "<script> location.replace('../invoice.php'); </script>";
-// }
-
-if (isset($_POST['arrayData'])) {
-  $arrayJSON = $_POST['arrayData'];
-  $arrayToStore = json_decode($arrayJSON, true);
-  $_SESSION['inv'] = serialize($arrayToStore);
-  // You can add additional logic here if needed
-  echo 'Array data stored successfully.';
-  echo "<script> location.replace('../invoice.php'); </script>";
-} else {
-  echo 'Error: No array data received.';
-}
-?>
    
     
 

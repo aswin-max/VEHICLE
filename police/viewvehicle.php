@@ -52,9 +52,9 @@ $dao=new DataAccess();
         'rto as r'=>array('r.rid=v.rid','join'),
         'type as t'=>array('t.tid=v.tid','join'),
         'fuel as f'=>array('f.fid=v.fid','join'),
-    );  $fields=array('vid','r.rname as rname','vrno','vehiclename','f.fname as fname','t.tname as tname','color','dor','rc');
+    );  $fields=array('v.vid','r.rname as rname','v.vrno','v.vehiclename','f.fname as fname','t.tname as tname','v.color','v.date','v.rc');
 
-    $users=$dao->selectAsTable($fields,'vehicle as v',"v.status=1",$join,$actions,$config);
+    $users=$dao->selectAsTable($fields,'vehicle as v',1,$join,$actions,$config);
     
     echo $users;
                     

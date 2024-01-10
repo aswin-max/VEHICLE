@@ -4,7 +4,7 @@ require('../../config/autoload.php');
 include("../dbcon.php");
 $a=$_SESSION["id"];
  $retrievedArray = unserialize($_SESSION['myArray']);
-print_r($retrievedArray);
+// print_r($retrievedArray);
 //   echo $retrievedArray[0][0];
 $b=0;
 foreach($retrievedArray as $row)
@@ -50,6 +50,12 @@ $randomID = generateRandomTransactionID(12);
 $today = date("Y-m-d");
  if(isset($_POST["pay"])) 
  {
+    $cnum=$_POST["Cnum"];
+    $cnum=$_POST["Cmm"];
+    $cnum=$_POST["cvv"];
+    $cnum=$_POST["Cname"];
+    if($cnum!=null)
+    {
     foreach($retrievedArray as $row)
     {
       $sql = "update punish set status=2 where  vid=".$users[0]['vd']." and status=1 and pid=".$row[0];
@@ -69,12 +75,19 @@ $data = array(
     }
 
 
+    $_SESSION['payment_completed'] = true;
 
-
+    // Redirect to the invoice page
+    header("Location: ../invoice.php");
+    exit;
+    // Redirect to invoice page or wherever needed
+    //echo"<script> location.replace('../invoice.php'); </script>";
+   
+  
          
-     echo"<script> location.replace('../invoice.php'); </script>";
+    //  
 
-
+    }
     
  }   
 
@@ -162,12 +175,12 @@ $data = array(
  <li class="nav-item"> 
     <a class="nav-link px-2 active" aria-current="page" href="#">Credit Card</a> 
 </li> 
-<li class="nav-item"> 
+<!-- <li class="nav-item"> 
     <a class="nav-link px-2" href="#">Mobile Payment</a> 
-</li>
- <li class="nav-item ms-auto">
+</li> -->
+ <!-- <li class="nav-item ms-auto">
 <a class="nav-link px-2" href="#">+ More</a>
-</li> 
+</li>  -->
     </ul> <div class="px-md-5 px-4 mb-4 d-flex align-items-center">
 
    
@@ -177,7 +190,13 @@ $data = array(
  <div class="d-flex flex-column px-md-5 px-4 mb-4"> 
 <span>Credit Card</span> 
 <div class="inputWithIcon"> 
-    <input class="form-control" type="text" value=""> 
+    <!-- <input class="form-control" type="text" value="">  -->
+                       
+                        <input type="text" class="form-control" name="Cnum" id="cardnumber"
+                           
+                            minlength="16" maxlength="16"  />
+
+
     <span class=""> 
 <img src="https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-logok-15.png" alt=""></span>
 </div> 
@@ -187,7 +206,11 @@ $data = array(
     <div class="d-flex flex-column ps-md-5 px-md-0 px-4 mb-4"> 
 <span>Expiration<span class="ps-1">Date</span></span> 
 <div class="inputWithIcon">
-<input type="text" class="form-control" value=""> <span class="fas fa-calendar-alt"></span>
+<!-- <input type="text" class="form-control" value=""> -->
+<input type="date" class="form-control" id="date" name="Cmm" placeholder="MM "
+                                    maxlength="2" minlength="1" id="date"   /> 
+                                    <!-- <span class="fas fa-calendar-alt"></span> -->
+
 </div> 
     </div>
  </div>
@@ -195,7 +218,10 @@ $data = array(
 <div class="d-flex flex-column pe-md-5 px-md-0 px-4 mb-4">
     <span>Code CVV</span>
 <div class="inputWithIcon">
-   <input type="password" class="form-control" value=""> 
+   <!-- <input type="password" class="form-control" value="">  -->
+   <input type="password" class="form-control" name="cvv" id="verification"
+                                    
+                                    minlength="3" maxlength="3" />
    <span class="fas fa-lock"></span> 
   </div>
     </div> 
@@ -204,7 +230,8 @@ $data = array(
    <div class="d-flex flex-column px-md-5 px-4 mb-4">
    <span>Name</span> 
    <div class="inputWithIcon">
-  <input class="form-control text-uppercase" type="text" value=""> 
+  <!-- <input class="form-control text-uppercase" type="text" value="">  -->
+  <input  type="text" class="form-control text-uppercase" name="Cname" id="Cname" />
   <span class="far fa-user"></span> 
  </div> 
   </div> 
@@ -218,4 +245,8 @@ $data = array(
   </form> 
    </div> 
     </div>
+    <?php
+  
+  ?>
     </html>
+    

@@ -1,8 +1,14 @@
 <?php require('../config/autoload.php')?>
 <?php include('header.php');
+?>
 
-
+<?php
 $dao=new DataAccess();
+
+$paymentCompleted = isset($_SESSION['payment_completed']) && $_SESSION['payment_completed'];
+
+// Clear the session variable to avoid unintended redirection
+unset($_SESSION['payment_completed']);
 
 
 $a = $_SESSION['id'];
@@ -35,6 +41,14 @@ $today = date("d F Y");
 <!-- Created by pdf2htmlEX (https://github.com/pdf2htmlEX/pdf2htmlEX) -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<script>
+        // Disable the back button by manipulating the browser history
+        history.pushState(null, null, document.URL);
+
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
 <meta charset="utf-8"/>
 <meta name="generator" content="pdf2htmlEX"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -334,3 +348,33 @@ table td {
 </div>
 </body>
 </html>
+<!-- <script>
+// Check if payment is completed (set by server-side logic)
+var paymentCompleted = <?php echo isset($_SESSION['payment_completed']) && $_SESSION['payment_completed'] ? 'true' : 'false'; ?>;
+
+// Redirect to home page if payment is completed
+if (paymentCompleted) {
+    window.location.href = "home.php";
+}
+</script> -->
+<script>
+    // Store the current page in session storage
+    sessionStorage.setItem('currentPage', window.location.href);
+
+    // Add a listener for the back button
+    window.addEventListener('popstate', function () {
+        // Check if the current page is the invoice page
+        if (window.location.href.includes("invoice.php")) {
+            // Redirect to the home page
+            window.location.href = "home.php";
+        } else {
+            // Store the current page in session storage
+            sessionStorage.setItem('currentPage', window.location.href);
+        }
+    });
+
+    // Optional: Add this part if you want to go back to the home page from other pages
+    if (sessionStorage.getItem('currentPage') && sessionStorage.getItem('currentPage') !== window.location.href) {
+        history.replaceState({}, document.title, sessionStorage.getItem('currentPage'));
+    }
+</script>

@@ -28,7 +28,7 @@ $dao = new DataAccess();
             'vehicle as v' => array('v.vid=m.vid', 'join'),
             'owner as o' => array('o.owno=m.owno', 'join'),
         );
-        $fields = array('mid','date','v.vrno as vrno', 'loc', 'o.owname as owname', 'm.pic');
+        $fields = array('mid','m.date','v.vrno as vrno', 'loc', 'o.owname as owname', 'm.pic');
         $users = $dao->selectAsTable($fields, 'missing as m','m.status=2',$join,$actions,$config);  
     
          

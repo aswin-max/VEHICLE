@@ -68,33 +68,6 @@ else
 
 
 
- <!-- if(isset($_POST["insert"]))
-{
-
-if($validator->validate($_POST))
-{
-	
-
-
-$data=array(
-
-        'offuser'=>$_POST['offuser'],
-
-        'offpass'=>$_POST['offpass'],
-         
-    );
-    $condition='fine_id='.$_GET['id'];
-
-    if($dao->update($data,'fine',$condition))
-    {
-        $msg="Successfullly Updated";
-
-    }
-    else
-        {$msg="Failed";} ?>  -->
-
-
-
 <?php
     
                                                                                                                                                                                                                                                                                                                         

@@ -4,6 +4,7 @@
 <html lang="en">
 <!-- Basic -->
 
+
 <head>
     
     <meta charset="utf-8">
@@ -13,13 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>Freshshop - Ecommerce Bootstrap 4 HTML Template</title>
+    <title>MVD</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
     <!-- Bootstrap CSS -->
@@ -106,9 +107,9 @@
                               
                             </ul>
                         </li> -->
-                        <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="#cat">contents</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
                         <li class="nav-item"><a class="nav-link" href="logout.php">LOGOUT</a></li>
                         
                     </ul>
@@ -123,8 +124,7 @@
   
 
 
-       
-  
+ 
   
   <!-- ALL JS FILES -->
   
